@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Green Powerhouse">
+  <circle cx="32" cy="32" r="31" fill="#171d19" stroke="#2a332c" stroke-width="1"/>
+  <path
+    fill="#4a7c6d"
+    d="M32 13c-9 11-13 19-13 28a13 13 0 0 0 26 0c0-9-4-17-13-28z"
+  />
+  <path
+    stroke="#c08a4e"
+    stroke-width="2.25"
+    stroke-linecap="round"
+    d="M32 27v20"
+  />
+</svg>

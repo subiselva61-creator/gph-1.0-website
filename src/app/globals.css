@@ -1,26 +1,458 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark liquid-glass base — LiquidEther shows through transparent surfaces */
+  --background-solid: #05080a;
+  --background: transparent;
+  --background-alt: rgba(255, 255, 255, 0.04);
+  --ink: #f2f7f4;
+  --ink-muted: rgba(242, 247, 244, 0.62);
+  --accent: #27ffe3;
+  --accent-gold: #97cfa3;
+  --accent-green: #0feb6e;
+  --line: rgba(255, 255, 255, 0.12);
+  --glass: rgba(255, 255, 255, 0.055);
+  --glass-strong: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.14);
+
+  --font-hero: clamp(2.75rem, 5vw, 4.75rem);
+  --font-h1-compact: clamp(2.25rem, 4vw, 3.5rem);
+  --font-h2: clamp(1.75rem, 3vw, 2.75rem);
+  --font-h3: clamp(1.25rem, 1.5vw, 1.5rem);
+  --font-body: clamp(1.0625rem, 0.25vw + 1rem, 1.125rem);
+  --font-body-sm: clamp(0.9375rem, 0.15vw + 0.875rem, 1rem);
+  --font-nav: 0.8125rem;
+  --font-eyebrow: 0.8125rem;
+
+  --space-section: clamp(6rem, 10vw, 9rem);
+  --space-section-tight: clamp(4rem, 7vw, 6rem);
+  --space-container-x: clamp(2rem, 5vw, 4.5rem);
+  --prose-max: 40rem;
+
+  --nav-height: 4.5rem;
+  --radius-pill: 999px;
+  --canvas-max: 90rem;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background-solid: var(--background-solid);
+  --color-background-alt: var(--background-alt);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-green: var(--accent-green);
+  --color-line: var(--line);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-border: var(--glass-border);
+
+  --font-sans: Helvetica, "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
+  --font-display: Helvetica, "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 90rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #05080a;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Hex fallback first — prevents Tailwind preflight white if tokens lag */
+  background-color: #05080a;
+  background-color: var(--background-solid, #05080a);
+  color: #f2f7f4;
+  color: var(--ink, #f2f7f4);
+  font-family: Helvetica, "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
+  font-size: var(--font-body);
+  line-height: 1.65;
+  min-height: 100vh;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--ink);
+}
+
+/* Liquid glass surfaces */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+}
+
+.glass-strong {
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+}
+
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+}
+
+.text-hero {
+  font-size: var(--font-hero);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.text-h1-compact {
+  font-size: var(--font-h1-compact);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-h2 {
+  font-size: var(--font-h2);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.text-h3 {
+  font-size: var(--font-h3);
+  line-height: 1.25;
+}
+
+.text-body {
+  font-size: var(--font-body);
+  line-height: 1.65;
+}
+
+.text-body-sm {
+  font-size: var(--font-body-sm);
+  line-height: 1.6;
+}
+
+.text-eyebrow {
+  font-size: var(--font-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.text-nav {
+  font-size: var(--font-nav);
+  letter-spacing: 0.08em;
+}
+
+.prose-measure {
+  max-width: var(--prose-max);
+}
+
+.py-section {
+  padding-block: var(--space-section);
+}
+
+.py-section-tight {
+  padding-block: var(--space-section-tight);
+}
+
+.pb-section {
+  padding-bottom: var(--space-section);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 0.25s ease, color 0.25s ease;
+}
+
+.link-underline:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Photographic grade — softened for dark liquid chrome */
+.img-warm {
+  filter: saturate(0.88) brightness(0.92) contrast(1.04);
+}
+
+.img-warm-overlay {
+  position: relative;
+}
+
+.img-warm-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 8, 10, 0.12) 0%,
+    rgba(5, 8, 10, 0.45) 100%
+  );
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────
+   Motion layer
+   ───────────────────────────────────────────── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+html.is-loading,
+html.is-loading body {
+  overflow: hidden;
+  height: 100%;
+}
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #05080a;
+  background: var(--background-solid, #05080a);
+}
+
+.preloader__logo {
+  width: clamp(3.5rem, 8vw, 5.5rem);
+  height: auto;
+}
+
+.split-mask {
+  overflow: hidden;
+  display: inline-block;
+}
+
+[data-reveal] {
+  will-change: opacity, transform, filter;
+}
+
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor-square {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease,
+    background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.cursor-square.is-active {
+  opacity: 1;
+}
+
+.cursor-square.hovered {
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: var(--accent);
+}
+
+.cursor-square.drag-mode {
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
+  background: color-mix(in srgb, var(--ink) 78%, transparent);
+  border-color: transparent;
+}
+
+.cursor-square .c-drag {
+  display: none;
+  color: var(--background-solid);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cursor-square.drag-mode .c-drag {
+  display: block;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-square {
+    display: none;
+  }
+}
+
+.char-flip {
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.char-flip__inner {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.5, 0, 0.1, 1);
+}
+
+.char-flip__inner span {
+  display: block;
+}
+
+.char-flip__inner span:last-child {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.drag-track {
+  display: flex;
+  cursor: grab;
+}
+
+.drag-track:active {
+  cursor: grabbing;
+}
+
+/* Ambient atmosphere behind LiquidEther — quiet tint so idle never goes pure black */
+.ether-atmosphere {
+  overflow: hidden;
+}
+
+.ether-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.28;
+  will-change: transform;
+  animation: ether-drift var(--orb-duration, 28s) ease-in-out infinite alternate;
+}
+
+.ether-orb--a {
+  --orb-duration: 30s;
+  width: min(60vw, 40rem);
+  height: min(60vw, 40rem);
+  left: -16%;
+  bottom: -20%;
+  background: radial-gradient(
+    circle,
+    rgba(15, 235, 110, 0.35) 0%,
+    rgba(15, 235, 110, 0.08) 45%,
+    transparent 70%
+  );
+}
+
+.ether-orb--b {
+  --orb-duration: 36s;
+  width: min(48vw, 32rem);
+  height: min(48vw, 32rem);
+  right: -10%;
+  top: -6%;
+  background: radial-gradient(
+    circle,
+    rgba(39, 255, 227, 0.28) 0%,
+    rgba(39, 255, 227, 0.06) 42%,
+    transparent 68%
+  );
+  animation-delay: -10s;
+}
+
+@keyframes ether-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(-3%, 4%, 0) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cursor-square {
+    display: none;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .ether-orb {
+    animation: none;
+    opacity: 0.22;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
+import { PageHero } from "@/components/meridian/PageHero";
+import { SheetSection } from "@/components/meridian/SheetSection";
 import { Reveal } from "@/components/motion/Reveal";
-import ShinyText from "@/components/react-bits/ShinyText";
-import { ValeranHero } from "@/components/ValeranHero";
-import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
 import { siteConfig } from "@/lib/site";
 
@@ -14,63 +12,86 @@ export const metadata: Metadata = {
     "Contact Green PowerHouse — Dubai Silicon Oasis. Discuss partnership and green hydrogen investment pathways.",
 };
 
+const details = [
+  { label: "Registered office", value: siteConfig.address, href: null },
+  { label: "Telephone", value: siteConfig.phone, href: siteConfig.phoneHref },
+  { label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
+  {
+    label: "LinkedIn",
+    value: siteConfig.social.linkedin.handle,
+    href: siteConfig.social.linkedin.href,
+  },
+  {
+    label: "YouTube",
+    value: siteConfig.social.youtube.handle,
+    href: siteConfig.social.youtube.href,
+  },
+];
+
 export default function ContactPage() {
   return (
     <>
-      <ValeranHero
-        compact
-        title="Talk to our team"
-        subtitle="Schedule a discussion about green hydrogen finance, circular solar, or agricultural infrastructure across the Global South."
+      <PageHero
+        sheet="GPH / 07"
+        title={
+          <>
+            Talk to <em>our team.</em>
+          </>
+        }
+        lines={[
+          "Green hydrogen finance, circular solar, or agricultural infrastructure",
+          "Schedule a discussion about the Global South",
+        ]}
         imageSrc={images.heroContact}
         imageAlt="Quiet office interior"
       />
 
-      <section className="py-section pb-section">
-        <Container>
-          <div className="grid gap-16 lg:grid-cols-12">
-            <Reveal className="lg:col-span-4">
-              <p className="text-eyebrow text-ink-muted">
-                <ShinyText text="Reach us" speed={2.5} className="text-eyebrow" />
-              </p>
-              <ul className="mt-8 space-y-6">
-                <li className="flex gap-3 text-body-sm text-ink-muted">
-                  <MapPin
-                    className="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                    aria-hidden
-                  />
-                  <address className="not-italic leading-relaxed">
-                    {siteConfig.address}
-                  </address>
-                </li>
-                <li>
-                  <a
-                    href={siteConfig.phoneHref}
-                    className="focus-ring inline-flex items-center gap-3 rounded-sm text-body-sm text-ink-muted transition hover:text-ink"
-                  >
-                    <Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden />
-                    {siteConfig.phone}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="focus-ring inline-flex items-center gap-3 rounded-sm text-body-sm text-ink-muted transition hover:text-ink"
-                  >
-                    <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden />
-                    {siteConfig.email}
-                  </a>
-                </li>
-              </ul>
-            </Reveal>
+      <SheetSection
+        reference="GPH / 07.1"
+        stamp="Reply within two working days"
+        title={
+          <>
+            Send the brief, <em>we will read it.</em>
+          </>
+        }
+      >
+        <div className="mt-12 grid gap-10 border-t border-rule pt-10 lg:grid-cols-[20rem_1fr] lg:gap-16">
+          <Reveal>
+            <p className="mono-label text-ink-faint">Reach us</p>
+            <dl className="mt-6 border-t border-rule">
+              {details.map((detail) => (
+                <div key={detail.label} className="border-b border-rule py-4">
+                  <dt className="mono-label text-ink-faint">{detail.label}</dt>
+                  <dd className="mt-2 text-body-sm text-ink">
+                    {detail.href ? (
+                      <a
+                        href={detail.href}
+                        target={
+                          detail.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          detail.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        className="link-underline transition-colors hover:text-accent"
+                      >
+                        {detail.value}
+                      </a>
+                    ) : (
+                      <span className="not-italic">{detail.value}</span>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
 
-            <Reveal className="min-w-0 lg:col-span-8">
-              <div className="glass-panel px-6 py-8 sm:px-8 sm:py-10">
-                <ContactForm />
-              </div>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
+          <Reveal className="min-w-0">
+            <ContactForm />
+          </Reveal>
+        </div>
+      </SheetSection>
     </>
   );
 }

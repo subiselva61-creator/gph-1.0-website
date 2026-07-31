@@ -1,30 +1,30 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type BracketLinkProps = {
+type CtaProps = {
   href: string;
   children: React.ReactNode;
-  className?: string;
+  variant?: "primary" | "secondary";
   external?: boolean;
+  className?: string;
 };
 
-export function BracketLink({
+const variants = {
+  primary: "btn-pill",
+  secondary: "btn-pill-ghost",
+} as const;
+
+export function Cta({
   href,
   children,
-  className,
+  variant = "primary",
   external,
-}: BracketLinkProps) {
+  className,
+}: CtaProps) {
   const classes = cn(
-    "focus-ring inline-flex items-center gap-1 rounded-sm text-nav font-medium tracking-[0.08em] text-ink transition-colors hover:text-accent",
+    "focus-ring h-11 px-7 text-[0.9375rem]",
+    variants[variant],
     className,
-  );
-
-  const label = (
-    <>
-      <span aria-hidden>[</span>
-      <span className="px-1.5">{children}</span>
-      <span aria-hidden>]</span>
-    </>
   );
 
   if (external) {
@@ -35,14 +35,14 @@ export function BracketLink({
         rel="noopener noreferrer"
         className={classes}
       >
-        {label}
+        {children}
       </a>
     );
   }
 
   return (
     <Link href={href} className={classes}>
-      {label}
+      {children}
     </Link>
   );
 }

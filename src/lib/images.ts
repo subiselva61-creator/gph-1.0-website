@@ -88,12 +88,18 @@ export const images = {
       label: "Global South",
     },
   ],
+  // Portrait plates for the 35mm interview frames — face-cropped.
   caseStudies: [
-    "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1000&q=80",
+    // Samuel N — Community Coordinator
+    "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=1000&h=1250&q=80&crop=faces",
+    // Aïcha M — Leader of the Women Farmers' Group
+    "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1000&h=1250&q=80&crop=faces",
+    // Joseph K — Artisan & Entrepreneur
+    "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=1000&h=1250&q=80&crop=faces",
+    // Claire D — Program Manager, Partner NGO
+    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&h=1250&q=80&crop=faces",
+    // Fatima T — Mother of Four
+    "https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=1000&h=1250&q=80&crop=faces",
   ],
 } as const;
 

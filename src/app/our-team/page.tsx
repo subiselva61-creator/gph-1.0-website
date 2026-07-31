@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { AdvisorCloseCTA } from "@/components/AdvisorCloseCTA";
-import { Reveal } from "@/components/motion/Reveal";
-import { SectionHeading } from "@/components/motion/SectionHeading";
-import ShinyText from "@/components/react-bits/ShinyText";
+import { CloseCTA } from "@/components/meridian/CloseCTA";
+import { PageHero } from "@/components/meridian/PageHero";
+import { SectionLabel } from "@/components/meridian/SectionLabel";
+import { SheetSection } from "@/components/meridian/SheetSection";
 import { TeamMemberCard } from "@/components/TeamMemberCard";
-import { ValeranHero } from "@/components/ValeranHero";
+import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
 import { ceoMember, teamMembers } from "@/lib/team-data";
+import { getInitials } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Our Team",
@@ -18,49 +19,84 @@ export const metadata: Metadata = {
 export default function OurTeamPage() {
   return (
     <>
-      <ValeranHero
-        compact
-        title="Our Team"
-        subtitle="The people behind Green PowerHouse — aligning finance, circular solar, and on-ground partnerships for sustainable development."
+      <PageHero
+        sheet="GPH / 06"
+        sheetOf="1 / 2"
+        title={
+          <>
+            Our <em>team.</em>
+          </>
+        }
+        lines={[
+          "The people behind Green PowerHouse",
+          "Aligning finance, circular solar, and on-ground partnerships for sustainable development",
+        ]}
         imageSrc={images.heroTeam}
         imageAlt="Collaborative team environment"
       />
 
-      <section className="py-section">
-        <Container>
-          <p className="text-eyebrow text-ink-muted">
-            <ShinyText text="Leadership" speed={2.5} className="text-eyebrow" />
-          </p>
-          <div className="mt-10 max-w-2xl">
-            <SectionHeading>{ceoMember.name}</SectionHeading>
-            <Reveal>
-              <p className="mt-2 text-body text-accent">{ceoMember.title}</p>
-              {ceoMember.bio ? (
-                <p className="mt-6 text-body text-ink-muted">{ceoMember.bio}</p>
-              ) : null}
-            </Reveal>
+      <SheetSection
+        reference="GPH / 06.1"
+        stamp="Plate 01 · leadership"
+        title={
+          <>
+            Leadership, <em>on the record.</em>
+          </>
+        }
+      >
+        <div className="mt-10 grid gap-10 border-t border-rule pt-10 lg:grid-cols-[16rem_1fr] lg:gap-16">
+          <div className="hatch flex aspect-4/5 max-w-64 items-center justify-center border border-rule">
+            <span className="display text-[clamp(2.5rem,5vw,3.5rem)] text-ink">
+              {getInitials(ceoMember.name)}
+            </span>
           </div>
-        </Container>
-      </section>
 
-      <section className="py-section pb-section">
+          <Reveal>
+            <p className="mono-label text-ink-faint">№ 00 · Plate · 35mm</p>
+            <h3 className="display text-h2 mt-4 text-ink">{ceoMember.name}</h3>
+            <p className="mono-label mt-3 text-accent">{ceoMember.title}</p>
+            {ceoMember.bio && (
+              <p className="mt-6 max-w-2xl text-body text-ink-muted">
+                {ceoMember.bio}
+              </p>
+            )}
+            <p className="mono-label mt-8 border-t border-rule pt-3 text-ink-faint">
+              Filed · Dubai · 2026.01
+            </p>
+          </Reveal>
+        </div>
+      </SheetSection>
+
+      <section className="border-b border-rule bg-paper-alt py-section">
         <Container>
-          <p className="text-eyebrow text-ink-muted">
-            <ShinyText text="Team" speed={2.5} className="text-eyebrow" />
-          </p>
+          <SectionLabel
+            left={`${teamMembers.length} plates · contact sheet`}
+            center="Initials in place of portraits"
+            right="Sheet 2 / 2"
+          />
+
+          <h2 className="display text-display mt-10 max-w-3xl">
+            The house, <em>frame by frame.</em>
+          </h2>
+
           <Reveal
             as="div"
-            stagger={0.08}
-            className="mt-12 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
+            stagger={0.06}
+            className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {teamMembers.map((member) => (
-              <TeamMemberCard key={member.id} member={member} />
+            {teamMembers.map((member, i) => (
+              <TeamMemberCard
+                key={member.id}
+                member={member}
+                index={i + 1}
+                total={teamMembers.length}
+              />
             ))}
           </Reveal>
         </Container>
       </section>
 
-      <AdvisorCloseCTA />
+      <CloseCTA />
     </>
   );
 }

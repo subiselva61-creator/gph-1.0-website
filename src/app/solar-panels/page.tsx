@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { AdvisorCloseCTA } from "@/components/AdvisorCloseCTA";
-import { CaseStudyCarousel } from "@/components/CaseStudyCarousel";
+import { Interviews } from "@/components/home/Interviews";
+import { CloseCTA } from "@/components/meridian/CloseCTA";
+import { NumberedSheet } from "@/components/meridian/NumberedSheet";
+import { PageHero } from "@/components/meridian/PageHero";
+import { SectionLabel } from "@/components/meridian/SectionLabel";
+import { PullQuote } from "@/components/PullQuote";
 import { Reveal } from "@/components/motion/Reveal";
-import { SectionHeading } from "@/components/motion/SectionHeading";
-import ShinyText from "@/components/react-bits/ShinyText";
-import { ValeranHero } from "@/components/ValeranHero";
 import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
 
@@ -41,60 +42,103 @@ const specs = [
   },
 ];
 
+const figures = [
+  { value: "90%", label: "Original power retained" },
+  { value: "15–20", label: "Years of operational life left" },
+  { value: "60–70%", label: "Lower cost than a new system" },
+];
+
 export default function SolarPanelsPage() {
   return (
     <>
-      <ValeranHero
-        compact
-        title="Sustainable solar solutions with a second life"
+      <PageHero
+        sheet="GPH / 02"
+        sheetOf="1 / 2"
+        title={
+          <>
+            Sustainable solar solutions <em>with a second life.</em>
+          </>
+        }
         lines={[
           "Premium pre-loved European photovoltaic panels",
           "Decades of power left to give — not waste",
           "Affordable renewable energy for the Global South",
         ]}
         imageSrc={images.heroSolar}
-        imageAlt="Solar panel array"
+        imageAlt="Solar panel array at dusk"
       />
 
-      {specs.map((spec, i) => (
-        <section key={spec.title} className="py-section">
-          <Container>
-            <Reveal
-              className={`max-w-xl ${i % 2 === 1 ? "lg:ml-auto lg:text-right" : ""}`}
-            >
-              <p className="text-eyebrow text-accent">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <SectionHeading className="mt-4">{spec.title}</SectionHeading>
-              {spec.title === "Cost Benefits" ? (
-                <p
-                  className={`mt-6 text-body text-ink-muted ${i % 2 === 1 ? "lg:ml-auto" : ""} prose-measure`}
-                >
-                  Second-life solar panels deliver reliable renewable energy at
-                  up to{" "}
-                  <ShinyText
-                    text="60–70% lower cost"
-                    speed={2.5}
-                    className="text-body"
-                  />{" "}
-                  than new systems — helping communities expand electrification
-                  and redirect savings to water, education, and healthcare.
-                </p>
-              ) : (
-                <p
-                  className={`mt-6 text-body text-ink-muted ${i % 2 === 1 ? "lg:ml-auto" : ""} prose-measure`}
-                >
-                  {spec.body}
-                </p>
-              )}
-            </Reveal>
-          </Container>
-        </section>
-      ))}
+      <section className="border-b border-rule bg-paper-alt py-section">
+        <Container>
+          <SectionLabel
+            left="Bulletin № 02"
+            center="GPH-2026-SOLAR · Sheet 1/1"
+            right="Filed from France · 11:02 CET"
+          />
 
-      <CaseStudyCarousel title="Impact in Practice" />
+          <Reveal
+            as="ul"
+            stagger={0.12}
+            className="mt-12 grid gap-px border-t border-rule sm:grid-cols-3"
+          >
+            {figures.map((figure) => (
+              <li
+                key={figure.label}
+                className="border-b border-rule py-8 sm:pr-8"
+              >
+                <p className="mono-num text-[clamp(2.5rem,5.5vw,4rem)] font-medium leading-none tracking-[-0.04em] text-ink">
+                  {figure.value}
+                </p>
+                <p className="mono-label mt-4 text-ink-faint">{figure.label}</p>
+              </li>
+            ))}
+          </Reveal>
+        </Container>
+      </section>
 
-      <AdvisorCloseCTA />
+      <section className="border-b border-rule py-section">
+        <Container>
+          <div className="flex items-baseline justify-between gap-4 border-b border-rule pb-3">
+            <span className="mono-label text-ink">
+              Spec · 6 zones, A through F
+            </span>
+            <span className="mono-label text-ink-faint">
+              Programme · second-life photovoltaic
+            </span>
+          </div>
+
+          <NumberedSheet className="mt-10" items={specs} letters />
+        </Container>
+      </section>
+
+      <PullQuote
+        stamp="Conviction · filed 2026.02"
+        attribution="Green PowerHouse · circular solar programme"
+      >
+        A panel at ninety percent output is not waste. It is a village clinic
+        with a refrigerator, a workshop that stays open after dark, and a school
+        where children can read after sunset.
+      </PullQuote>
+
+      <Interviews
+        heading={
+          <>
+            Impact in practice, <em>told by the people it reaches.</em>
+          </>
+        }
+        issue="Issue 02 · Solar"
+      />
+
+      <CloseCTA
+        label="Solar programme"
+        heading={
+          <>
+            Bring a system to your community, <em>at a fraction of the cost.</em>
+          </>
+        }
+        body="Tell us the site, the load, and the timeline. We will size the array against available second-life stock and come back with a costed plan."
+        ctaLabel="Request a site assessment"
+      />
     </>
   );
 }

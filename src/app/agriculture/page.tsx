@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { AdvisorCloseCTA } from "@/components/AdvisorCloseCTA";
 import { DataTable } from "@/components/DataTable";
+import { CloseCTA } from "@/components/meridian/CloseCTA";
+import { PageHero } from "@/components/meridian/PageHero";
+import { SheetSection } from "@/components/meridian/SheetSection";
 import { PullQuote } from "@/components/PullQuote";
 import { Reveal } from "@/components/motion/Reveal";
-import { SectionHeading } from "@/components/motion/SectionHeading";
-import ShinyText from "@/components/react-bits/ShinyText";
-import { ValeranHero } from "@/components/ValeranHero";
-import { Container } from "@/components/ui/Container";
 import * as content from "@/lib/agriculture/content";
 import * as tables from "@/lib/agriculture/tables";
 import { images } from "@/lib/images";
@@ -17,27 +15,9 @@ export const metadata: Metadata = {
     "Strategic Blueprint – Vision 2030. Integrated Delivery Commodity, powered by Green PowerHouse — technology-enabled agricultural infrastructure across West Africa.",
 };
 
-function Section({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className="py-section">
-      <Container>{children}</Container>
-    </section>
-  );
-}
-
-function Heading({ children }: { children: React.ReactNode }) {
-  return <SectionHeading>{children}</SectionHeading>;
-}
-
 function Prose({ paragraphs }: { paragraphs: string[] }) {
   return (
-    <Reveal as="div" stagger={0.1} className="mt-8 max-w-3xl space-y-5">
+    <Reveal as="div" stagger={0.08} className="mt-8 max-w-3xl space-y-5">
       {paragraphs.map((p) => (
         <p key={p.slice(0, 48)} className="text-body text-ink-muted">
           {p}
@@ -47,36 +27,94 @@ function Prose({ paragraphs }: { paragraphs: string[] }) {
   );
 }
 
-function PillarList({
+function BlockList({
   items,
+  columns = 3,
 }: {
   items: { index?: number; title: string; description: string }[];
+  columns?: 2 | 3;
 }) {
   return (
-    <Reveal as="ul" stagger={0.1} className="mt-10 grid gap-8 lg:grid-cols-3">
-      {items.map((item) => (
-        <li key={item.title} className="border-t border-line pt-5">
-          {item.index != null ? (
-            <p className="text-eyebrow text-accent">
-              {String(item.index).padStart(2, "0")}
-            </p>
-          ) : null}
-          <h3 className="mt-2 font-display text-h3 font-normal text-ink">
-            {item.title}
-          </h3>
-          {item.description.startsWith("$") ? (
-            <p className="mt-3 text-body-sm text-ink-muted">
-              <ShinyText
-                text={item.description}
-                speed={2.5}
-                className="text-body-sm"
-              />
-            </p>
-          ) : (
-            <p className="mt-3 text-body-sm text-ink-muted">
-              {item.description}
-            </p>
+    <Reveal
+      as="ul"
+      stagger={0.08}
+      className={`mt-12 grid gap-px border-t border-rule ${
+        columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
+      }`}
+    >
+      {items.map((item, i) => (
+        <li key={item.title} className="border-b border-rule py-7 lg:pr-8">
+          <p className="mono-label text-ink-faint">
+            {String(item.index ?? i + 1).padStart(2, "0")}
+          </p>
+          <h3 className="text-h3 mt-3 text-ink">{item.title}</h3>
+          <p className="mt-3 text-body-sm text-ink-muted">{item.description}</p>
+        </li>
+      ))}
+    </Reveal>
+  );
+}
+
+function FieldList({
+  items,
+  columns = 2,
+}: {
+  items: {
+    index?: number;
+    title: string;
+    fields?: { label: string; value: string }[];
+  }[];
+  columns?: 2 | 3;
+}) {
+  return (
+    <ul className="mt-12 border-t border-rule">
+      {items.map((item, i) => (
+        <li key={item.title} className="border-b border-rule py-8">
+          <div className="flex items-baseline gap-4">
+            <span className="mono-label text-ink-faint">
+              {String(item.index ?? i + 1).padStart(2, "0")}
+            </span>
+            <h3 className="text-h3 text-ink">{item.title}</h3>
+          </div>
+          {item.fields && item.fields.length > 0 && (
+            <dl
+              className={`mt-5 grid gap-6 ${
+                columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
+              }`}
+            >
+              {item.fields.map((field) => (
+                <div key={field.label}>
+                  <dt className="mono-label text-ink-faint">{field.label}</dt>
+                  <dd className="mt-2 text-body-sm text-ink-muted">
+                    {field.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function KeyFigures({
+  figures,
+}: {
+  figures: { value: string; label: string }[];
+}) {
+  return (
+    <Reveal
+      as="ul"
+      stagger={0.12}
+      className="mt-12 grid gap-px border-t border-rule sm:grid-cols-2"
+    >
+      {figures.map((figure) => (
+        <li key={figure.label} className="border-b border-rule py-8 sm:pr-8">
+          <p className="mono-num text-[clamp(2.25rem,5vw,3.5rem)] font-medium leading-none tracking-[-0.04em] text-ink">
+            {figure.value}
+          </p>
+          <p className="mono-label mt-4 text-ink-faint">{figure.label}</p>
         </li>
       ))}
     </Reveal>
@@ -86,9 +124,14 @@ function PillarList({
 export default function AgriculturePage() {
   return (
     <>
-      <ValeranHero
-        compact
-        title="Strategic Blueprint — Vision 2030"
+      <PageHero
+        sheet="AGR / 00"
+        sheetOf="1 / 13"
+        title={
+          <>
+            Strategic Blueprint — <em>Vision 2030.</em>
+          </>
+        }
         lines={[
           "Integrated Delivery Commodity, powered by Green PowerHouse",
           "Technology-enabled agricultural trading and logistics across West Africa",
@@ -98,199 +141,269 @@ export default function AgriculturePage() {
         imageAlt="Agricultural fields at harvest"
       />
 
-      <Section id="executive-summary">
-        <Heading>Executive Summary</Heading>
+      <SheetSection
+        id="executive-summary"
+        reference="AGR / 01"
+        sheet="2 / 13"
+        title={
+          <>
+            Executive <em>summary.</em>
+          </>
+        }
+      >
         <Prose paragraphs={content.executiveSummaryParagraphs} />
-        <PillarList items={content.executivePillars} />
-        <div className="mt-14 max-w-3xl">
-          <PullQuote>{content.executivePullQuote}</PullQuote>
-        </div>
-      </Section>
+        <BlockList items={content.executivePillars} />
+      </SheetSection>
 
-      <Section id="structural-opportunity">
-        <Heading>Structural Opportunity</Heading>
+      <PullQuote stamp="Ambition · filed 2026.01">
+        {content.executivePullQuote}
+      </PullQuote>
+
+      <SheetSection
+        id="structural-opportunity"
+        reference="AGR / 02"
+        sheet="3 / 13"
+        alt
+        title={
+          <>
+            Structural <em>opportunity.</em>
+          </>
+        }
+      >
         <Prose paragraphs={content.structuralOpportunityParagraphs} />
-        <PillarList items={content.structuralBlocks} />
-        <div className="mt-14">
-          <DataTable data={tables.seasonalCalendar} />
-        </div>
-      </Section>
+        <BlockList items={content.structuralBlocks} columns={2} />
+        <DataTable
+          className="mt-14"
+          data={tables.seasonalCalendar}
+          reference="AGR / 02.1"
+        />
+      </SheetSection>
 
-      <Section id="franchise-warehouse">
-        <Heading>Franchise Warehouse Network</Heading>
+      <SheetSection
+        id="franchise-warehouse"
+        reference="AGR / 03"
+        sheet="4 / 13"
+        title={
+          <>
+            Franchise warehouse <em>network.</em>
+          </>
+        }
+      >
         <Prose paragraphs={content.franchiseWarehouseParagraphs} />
-        <div className="mt-12 grid gap-10 sm:grid-cols-2">
-          <div className="border-t border-line pt-5">
-            <p className="font-display text-h2 font-normal text-ink">
-              <ShinyText
-                text="$50K–$145K"
-                speed={2.5}
-                className="font-display text-h2"
-                color="var(--ink-muted)"
-                shineColor="var(--ink)"
-              />
-            </p>
-            <p className="mt-2 text-body-sm text-ink-muted">
-              Investment per warehouse
-            </p>
-          </div>
-          <div className="border-t border-line pt-5">
-            <p className="font-display text-h2 font-normal text-ink">
-              <ShinyText
-                text="300–800 tons"
-                speed={2.5}
-                className="font-display text-h2"
-                color="var(--ink-muted)"
-                shineColor="var(--ink)"
-              />
-            </p>
-            <p className="mt-2 text-body-sm text-ink-muted">
-              Annual handling capacity
-            </p>
-          </div>
-        </div>
-        <div className="mt-14">
-          <DataTable data={tables.warehouseEconomics} />
-        </div>
-      </Section>
+        <KeyFigures
+          figures={[
+            { value: "$50K–$145K", label: "Investment per warehouse" },
+            { value: "300–800 t", label: "Annual handling capacity" },
+          ]}
+        />
+        <DataTable
+          className="mt-14"
+          data={tables.warehouseEconomics}
+          reference="AGR / 03.1"
+        />
+        <DataTable
+          className="mt-8"
+          data={tables.franchiseIncentives}
+          reference="AGR / 03.2"
+        />
+      </SheetSection>
 
-      <Section id="digital-platform">
-        <Heading>Digital Coordination Platform</Heading>
-        <p className="mt-6 max-w-3xl text-body text-ink-muted">
+      <SheetSection
+        id="digital-platform"
+        reference="AGR / 04"
+        sheet="5 / 13"
+        alt
+        title={
+          <>
+            Digital coordination <em>platform.</em>
+          </>
+        }
+      >
+        <p className="mt-8 max-w-3xl text-body text-ink-muted">
           Beyond physical infrastructure, IDC powered by GPH plans to develop a
           digital coordination platform linking all actors in the agricultural
           supply chain.
         </p>
-        <PillarList items={content.digitalPlatformModules} />
-        {content.digitalPlatformNote ? (
-          <p className="mt-8 max-w-3xl text-body-sm italic text-ink-muted">
+        <BlockList items={content.digitalPlatformModules} columns={2} />
+        {content.digitalPlatformNote && (
+          <p className="mt-10 max-w-3xl border-l-2 border-accent pl-5 text-body-sm text-ink-muted">
             {content.digitalPlatformNote}
           </p>
-        ) : null}
-      </Section>
+        )}
+      </SheetSection>
 
-      <Section id="capital-structure">
-        <Heading>Capital & Returns</Heading>
-        <p className="mt-6 max-w-3xl text-body text-ink-muted">
-          {content.capitalStructureIntro}
-        </p>
-        <p className="mt-5 max-w-3xl text-body text-ink-muted">
-          {content.capitalVelocityBody}
-        </p>
-        <div className="mt-12 grid gap-12 lg:grid-cols-2">
-          <DataTable data={tables.capitalDeployment} />
-          <DataTable data={tables.revenueProfitability} />
+      <SheetSection
+        id="capital-structure"
+        reference="AGR / 05"
+        sheet="6 / 13"
+        title={
+          <>
+            Capital <em>and returns.</em>
+          </>
+        }
+      >
+        <div className="mt-8 max-w-3xl space-y-5">
+          <p className="text-body text-ink-muted">
+            {content.capitalStructureIntro}
+          </p>
+          <p className="text-body text-ink-muted">
+            {content.capitalVelocityBody}
+          </p>
         </div>
-        <div className="mt-12">
-          <DataTable data={tables.commodityPortfolio} />
+        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+          <DataTable data={tables.capitalDeployment} reference="AGR / 05.1" />
+          <DataTable data={tables.revenueProfitability} reference="AGR / 05.2" />
         </div>
-      </Section>
+        <DataTable
+          className="mt-8"
+          data={tables.commodityPortfolio}
+          reference="AGR / 05.3"
+        />
+        <DataTable
+          className="mt-8"
+          data={tables.monthlyCashFlow}
+          reference="AGR / 05.4"
+        />
+      </SheetSection>
 
-      <Section id="shareholders">
-        <Heading>Shareholder Pathway</Heading>
+      <SheetSection
+        id="shareholders"
+        reference="AGR / 06"
+        sheet="7 / 13"
+        alt
+        title={
+          <>
+            Shareholder <em>pathway.</em>
+          </>
+        }
+      >
         <Prose paragraphs={content.shareholderParagraphs} />
-        <p className="mt-6 max-w-3xl text-body font-medium text-ink">
+        <p className="mt-8 max-w-3xl text-body font-medium text-ink">
           {content.shareholderSummary}
         </p>
-        <div className="mt-12 grid gap-12 lg:grid-cols-2">
-          <DataTable data={tables.shareholder2028} />
-          <DataTable data={tables.shareholderResult} />
+        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+          <DataTable data={tables.shareholder2028} reference="AGR / 06.1" />
+          <DataTable data={tables.shareholderResult} reference="AGR / 06.2" />
         </div>
-      </Section>
+      </SheetSection>
 
-      <Section id="economic-moat">
-        <Heading>Economic Moat</Heading>
-        <PillarList items={content.economicMoatBlocks} />
+      <SheetSection
+        id="economic-moat"
+        reference="AGR / 07"
+        sheet="8 / 13"
+        title={
+          <>
+            Economic <em>moat.</em>
+          </>
+        }
+      >
+        <BlockList items={content.economicMoatBlocks} />
         <Prose paragraphs={content.economicMoatClosing} />
-      </Section>
+      </SheetSection>
 
-      <Section id="roadmap">
-        <Heading>2026 Roadmap</Heading>
+      <SheetSection
+        id="roadmap"
+        reference="AGR / 08"
+        sheet="9 / 13"
+        alt
+        title={
+          <>
+            2026 <em>roadmap.</em>
+          </>
+        }
+      >
         <Prose paragraphs={content.roadmapIntro} />
-        <div className="mt-12">
-          <DataTable data={tables.investmentPriorities2026} />
-        </div>
-        <div className="mt-12">
-          <DataTable data={tables.targetCommodityVolumes} />
-        </div>
-      </Section>
+        <DataTable
+          className="mt-14"
+          data={tables.investmentPriorities2026}
+          reference="AGR / 08.1"
+        />
+        <DataTable
+          className="mt-8"
+          data={tables.targetCommodityVolumes}
+          reference="AGR / 08.2"
+        />
+        <DataTable
+          className="mt-8"
+          data={tables.expectedFinancials2026}
+          reference="AGR / 08.3"
+        />
+      </SheetSection>
 
-      <Section id="strategic-drivers">
-        <Heading>Strategic Drivers</Heading>
-        <PillarList items={content.strategicDrivers} />
-      </Section>
+      <SheetSection
+        id="strategic-drivers"
+        reference="AGR / 09"
+        sheet="10 / 13"
+        title={
+          <>
+            Strategic <em>drivers.</em>
+          </>
+        }
+      >
+        <BlockList items={content.strategicDrivers} />
+      </SheetSection>
 
-      <Section id="constraints">
-        <Heading>Operational Constraints</Heading>
-        <ul className="mt-10 space-y-10">
-          {content.operationalConstraints.map((item) => (
-            <li key={item.title} className="border-t border-line pt-6">
-              <h3 className="font-display text-h3 font-normal text-ink">
-                {item.title}
-              </h3>
-              <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                {item.fields?.map((field) => (
-                  <div key={field.label}>
-                    <p className="text-eyebrow text-ink-muted">{field.label}</p>
-                    <p className="mt-2 text-body-sm text-ink-muted">
-                      {field.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <SheetSection
+        id="constraints"
+        reference="AGR / 10"
+        sheet="11 / 13"
+        alt
+        title={
+          <>
+            Operational <em>constraints.</em>
+          </>
+        }
+      >
+        <FieldList items={content.operationalConstraints} />
+      </SheetSection>
 
-      <Section id="vision-2030">
-        <Heading>Long-Term Vision 2030</Heading>
-        <PillarList items={content.longTermVision2030} />
-        <div className="mt-14 max-w-3xl">
-          <PullQuote>{content.agroPullQuote}</PullQuote>
-        </div>
-      </Section>
+      <SheetSection
+        id="vision-2030"
+        reference="AGR / 11"
+        sheet="12 / 13"
+        title={
+          <>
+            Long-term <em>vision 2030.</em>
+          </>
+        }
+      >
+        <BlockList items={content.longTermVision2030} />
+      </SheetSection>
 
-      <Section id="risks">
-        <Heading>Key Risks & Mitigations</Heading>
-        <p className="mt-6 max-w-3xl text-body text-ink-muted">
+      <PullQuote stamp="Expansion · filed 2026.03">
+        {content.agroPullQuote}
+      </PullQuote>
+
+      <SheetSection
+        id="risks"
+        reference="AGR / 12"
+        sheet="13 / 13"
+        alt
+        title={
+          <>
+            Key risks <em>and mitigations.</em>
+          </>
+        }
+      >
+        <p className="mt-8 max-w-3xl text-body text-ink-muted">
           {content.keyRisksIntro}
         </p>
-        <ul className="mt-12 space-y-10">
-          {content.keyRisks.map((risk) => (
-            <li key={risk.title} className="border-t border-line pt-6">
-              <div className="flex items-baseline gap-4">
-                {risk.index != null ? (
-                  <span className="text-eyebrow text-accent">
-                    {String(risk.index).padStart(2, "0")}
-                  </span>
-                ) : null}
-                <h3 className="font-display text-h3 font-normal text-ink">
-                  {risk.title}
-                </h3>
-              </div>
-              <div className="mt-4 grid gap-4 lg:grid-cols-3">
-                {risk.fields?.map((field) => (
-                  <div key={field.label}>
-                    <p className="text-eyebrow text-ink-muted">{field.label}</p>
-                    <p className="mt-2 text-body-sm text-ink-muted">
-                      {field.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
-        {content.riskDashboard ? (
-          <p className="mt-12 max-w-3xl text-body-sm italic text-ink-muted">
+        <FieldList items={content.keyRisks} columns={3} />
+        {content.riskDashboard && (
+          <p className="mt-12 max-w-3xl border-l-2 border-accent pl-5 text-body-sm text-ink-muted">
             {content.riskDashboard}
           </p>
-        ) : null}
-      </Section>
+        )}
+      </SheetSection>
 
-      <AdvisorCloseCTA
+      <CloseCTA
         label="Talk to our team"
+        heading={
+          <>
+            Discuss Vision 2030, <em>sheet by sheet.</em>
+          </>
+        }
+        body="The blueprint above is the whole plan. Tell us which sheet matters to you and we will walk through the numbers behind it."
         ctaLabel="Discuss Vision 2030"
       />
     </>

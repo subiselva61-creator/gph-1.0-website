@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { AdvisorCloseCTA } from "@/components/AdvisorCloseCTA";
-import { CaseStudyCarousel } from "@/components/CaseStudyCarousel";
-import { DragSectorGallery } from "@/components/DragSectorGallery";
-import { PillLinkRow } from "@/components/PillLinkRow";
-import { ValeranHero } from "@/components/ValeranHero";
+import { CashewDesk } from "@/components/home/CashewDesk";
+import { Comparison } from "@/components/home/Comparison";
+import { DynamicIsland } from "@/components/home/DynamicIsland";
+import { FieldShift } from "@/components/home/FieldShift";
+import { Hero } from "@/components/home/Hero";
+import { Interviews } from "@/components/home/Interviews";
+import { PartnerWall } from "@/components/home/PartnerWall";
+import { PricingLedger } from "@/components/home/PricingLedger";
+import { SectorIndex } from "@/components/home/SectorIndex";
+import { Terminal } from "@/components/home/Terminal";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,61 +16,28 @@ export const metadata: Metadata = {
     absolute: `${siteConfig.name} | Driving the Green Hydrogen Economy`,
   },
   description:
-    "Green PowerHouse is dedicated to driving the green hydrogen economy through AI-powered investment matching, project advisory, and green infrastructure finance.",
+    "Green PowerHouse runs three desks: a green hydrogen intelligence terminal, second-life solar panels, and West African cashew trade.",
   openGraph: {
     title: `${siteConfig.name} | Driving the Green Hydrogen Economy`,
     description:
-      "AI-powered investment matching, project advisory, and green infrastructure finance for governments, institutional investors & infrastructure developers.",
+      "A green hydrogen intelligence terminal from $250 a month, second-life solar panels, and graded West African cashew trade — from one advisory house.",
   },
 };
-
-const growthPills = [
-  {
-    href: "/our-proposal",
-    label: "Green Hydrogen",
-    description: "technology-ready, zero-emission fuel",
-  },
-  {
-    href: "/our-proposal",
-    label: "Structured Finance",
-    description: "blended local-currency vehicles",
-  },
-  {
-    href: "/solar-panels",
-    label: "Solar Circularity",
-    description: "second-life panels, first-life impact",
-  },
-  {
-    href: "/market-insights",
-    label: "Market Intelligence",
-    description: "global demand, local execution",
-  },
-];
 
 export default function HomePage() {
   return (
     <>
-      <ValeranHero
-        badge="Green hydrogen platforms"
-        title="Driving the green hydrogen economy"
-        lines={[
-          "AI-powered investment matching, project advisory, and green infrastructure finance for governments, institutional investors & infrastructure developers.",
-        ]}
-        primaryCta={{ href: "/contact-us", label: "Get started" }}
-        secondaryCta={{ href: "/our-proposal", label: "Learn more" }}
-      />
-
-      <PillLinkRow
-        title="For Sustainable Growth"
-        intro="Let's make your projects long-term viable with a global vision and clear guidance."
-        items={growthPills}
-      />
-
-      <DragSectorGallery />
-
-      <CaseStudyCarousel />
-
-      <AdvisorCloseCTA />
+      <Hero />
+      <SectorIndex />
+      {/* Desk 01 → 02 → 03, then the proof, then the ledger */}
+      <Terminal />
+      <FieldShift />
+      <CashewDesk />
+      <DynamicIsland />
+      <Comparison />
+      <PartnerWall />
+      <PricingLedger />
+      <Interviews />
     </>
   );
 }

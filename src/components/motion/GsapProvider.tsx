@@ -20,6 +20,8 @@ export function GsapProvider({ children }: { children: React.ReactNode }) {
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      // In-page desk anchors land clear of the sticky navbar.
+      anchors: { offset: -76 },
     });
 
     lenis.on("scroll", ScrollTrigger.update);

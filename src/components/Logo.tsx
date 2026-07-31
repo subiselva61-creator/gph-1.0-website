@@ -40,7 +40,7 @@ export function Logo({
           alt={siteConfig.name}
           width={dim.mark}
           height={dim.mark}
-          className="h-full w-full object-contain brightness-110"
+          className="h-full w-full object-contain"
           priority={priority}
           sizes={`${dim.mark}px`}
         />
@@ -48,7 +48,7 @@ export function Logo({
       {showWordmark ? (
         <span
           className={cn(
-            "font-display font-bold uppercase tracking-[0.06em] text-ink",
+            "font-medium tracking-[-0.02em] text-ink",
             dim.text,
             wordmarkClassName,
           )}

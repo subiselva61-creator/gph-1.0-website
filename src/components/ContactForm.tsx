@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/lib/site";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
@@ -17,76 +17,83 @@ export function ContactForm() {
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\n${message}`,
     );
-    window.location.href = `mailto:info@gph.energy?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
     setStatus("sent");
     form.reset();
   }
 
   const fieldClass =
-    "focus-ring w-full rounded-xl border border-glass-border bg-glass px-4 py-3 text-body-sm text-ink placeholder:text-ink-muted/60 backdrop-blur-md transition hover:border-accent/40";
+    "focus-ring w-full border border-rule bg-paper px-3 py-2.5 text-body-sm text-ink transition-colors placeholder:text-ink-faint hover:border-rule-strong";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div>
-        <label
-          htmlFor="name"
-          className="text-eyebrow mb-2 block text-ink-muted"
-        >
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          autoComplete="name"
-          className={fieldClass}
-          placeholder="Your name"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="email"
-          className="text-eyebrow mb-2 block text-ink-muted"
-        >
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          className={fieldClass}
-          placeholder="you@organization.com"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="message"
-          className="text-eyebrow mb-2 block text-ink-muted"
-        >
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={5}
-          className={`${fieldClass} resize-y`}
-          placeholder="How can we help?"
-        />
+    <form onSubmit={handleSubmit} className="border border-rule bg-paper-raised">
+      <div className="flex items-baseline justify-between gap-4 border-b border-rule px-5 py-2.5">
+        <span className="mono-label text-ink">Enquiry · form 01</span>
+        <span className="mono-label text-ink-faint">3 fields</span>
       </div>
 
-      {status === "sent" && (
-        <p className="text-body-sm text-accent" role="status">
-          Opening your email client…
+      <div className="flex flex-col gap-5 p-5">
+        <div>
+          <label htmlFor="name" className="mono-label mb-2 block text-ink-faint">
+            01 · Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            className={fieldClass}
+            placeholder="Your name"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="mono-label mb-2 block text-ink-faint">
+            02 · Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className={fieldClass}
+            placeholder="you@organization.com"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="message"
+            className="mono-label mb-2 block text-ink-faint"
+          >
+            03 · Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows={6}
+            className={`${fieldClass} resize-y`}
+            placeholder="How can we help?"
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-rule px-5 py-4">
+        <p className="mono-label text-ink-faint" role="status">
+          {status === "sent"
+            ? "Opening your email client…"
+            : "Sent to your mail client for signature"}
         </p>
-      )}
-
-      <Button type="submit" size="lg">
-        Send Message
-      </Button>
+        <button
+          type="submit"
+          className="btn-pill focus-ring h-11 px-7 text-[0.9375rem]"
+        >
+          Send message
+        </button>
+      </div>
     </form>
   );
 }

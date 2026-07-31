@@ -64,8 +64,10 @@ export const navGroups: NavEntry[] = [
   {
     label: "Our Products",
     children: [
+      { href: "/#terminal", label: "Hydrogen Terminal" },
       { href: "/solar-panels", label: "Solar" },
       { href: "/agriculture", label: "Agriculture" },
+      { href: "/#plans", label: "Plans & Pricing" },
     ],
   },
   { href: "/contact-us", label: "Contact" },

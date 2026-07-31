@@ -19,21 +19,21 @@ type Ticket = {
   featured: boolean;
 };
 
-/** Desk 01 — subscription access to the green hydrogen terminal. */
-const terminalPlans: Ticket[] = [
+/** Product 01 — Hydro AI subscription plans. */
+const hydroAiPlans: Ticket[] = [
   {
-    name: "Terminal · Watchlist",
-    ref: "№ GPH-TW-2026",
-    blurb: "For the analyst who needs the map before the desk.",
+    name: "Hydro AI · Watchlist",
+    ref: "№ GPH-HA-W-2026",
+    blurb: "For the analyst who needs the map before the match.",
     includes: [
-      { label: "Plant register", note: "Full" },
-      { label: "Capital register", note: "Names only" },
+      { label: "Matching AI engine", note: "3 matches / mo" },
+      { label: "Plant intelligence", note: "Full" },
+      { label: "Investor register", note: "Names only" },
       { label: "Live tracking", note: "10 projects" },
-      { label: "Newswire", note: "Daily digest" },
+      { label: "Live news", note: "Daily digest" },
       { label: "Trade desk", note: "Read only" },
       { label: "Structured pipeline", note: "Screening" },
       { label: "Seats", note: "1" },
-      { label: "Support", note: "Email" },
     ],
     lines: [
       { label: "Subscription", value: "$250.00" },
@@ -42,26 +42,26 @@ const terminalPlans: Ticket[] = [
     ],
     total: "$250",
     totalUnit: "/ month",
-    auth: "0xgphtw2026",
+    auth: "0xgphhaw2026",
     holder: "your watchlist",
     cta: "Buy now",
     ctaHref: "/contact-us",
     featured: false,
   },
   {
-    name: "Terminal · Desk",
-    ref: "№ GPH-TD-2026",
-    blurb: "For the team that has to act on what it reads.",
+    name: "Hydro AI · Desk",
+    ref: "№ GPH-HA-D-2026",
+    blurb: "For the team that acts on AI-ranked investment options.",
     includes: [
       { label: "Everything in Watchlist" },
-      { label: "Plant register", note: "Daily refresh" },
-      { label: "Capital register", note: "Contacts + tickets" },
+      { label: "Matching AI engine", note: "Unlimited" },
+      { label: "Plant intelligence", note: "Daily refresh" },
+      { label: "Investor register", note: "Contacts + tickets" },
       { label: "Live tracking", note: "100 projects" },
-      { label: "Newswire", note: "Real time" },
+      { label: "Live news", note: "Real time" },
       { label: "Trade desk", note: "Post interest" },
       { label: "Structured pipeline", note: "Through FID" },
       { label: "Seats", note: "5" },
-      { label: "Support", note: "Shared channel" },
     ],
     lines: [
       { label: "Subscription", value: "$600.00" },
@@ -70,26 +70,26 @@ const terminalPlans: Ticket[] = [
     ],
     total: "$600",
     totalUnit: "/ month",
-    auth: "0xgphtd2026",
+    auth: "0xgphhad2026",
     holder: "your desk",
     cta: "Buy now",
     ctaHref: "/contact-us",
     featured: true,
   },
   {
-    name: "Terminal · House",
-    ref: "№ GPH-TH-2026",
-    blurb: "For the institution running the whole book.",
+    name: "Hydro AI · House",
+    ref: "№ GPH-HA-H-2026",
+    blurb: "For the institution running the full Hydro AI book.",
     includes: [
       { label: "Everything in Desk" },
-      { label: "Plant register", note: "Unlimited + API" },
-      { label: "Capital register", note: "Warm introductions" },
+      { label: "Matching AI engine", note: "API + custom weights" },
+      { label: "Plant intelligence", note: "Unlimited + API" },
+      { label: "Investor register", note: "Warm introductions" },
       { label: "Live tracking", note: "Unlimited" },
-      { label: "Newswire", note: "Analyst notes" },
+      { label: "Live news", note: "Analyst notes" },
       { label: "Trade desk", note: "Brokered matching" },
       { label: "Structured pipeline", note: "To financial close" },
       { label: "Seats", note: "Unlimited" },
-      { label: "Support", note: "Named advisor" },
     ],
     lines: [
       { label: "Subscription", value: "$1,000.00" },
@@ -98,7 +98,7 @@ const terminalPlans: Ticket[] = [
     ],
     total: "$1,000",
     totalUnit: "/ month",
-    auth: "0xgphth2026",
+    auth: "0xgphhah2026",
     holder: "your institution",
     cta: "Buy now",
     ctaHref: "/contact-us",
@@ -204,7 +204,7 @@ export function PricingLedger() {
     <section id="plans" className="border-b border-rule py-section">
       <Container>
         <SectionLabel
-          left="Desk 01 · Terminal access"
+          left="Product 01 · Hydro AI"
           center="Three plans · pick one"
           right="Priced · 2026.04"
         />
@@ -214,19 +214,19 @@ export function PricingLedger() {
         </h2>
 
         <p className="mt-7 max-w-2xl text-body text-ink-muted">
-          Three plans on the green hydrogen terminal. Every plan sees the same
-          market; what changes is how much of it you can track, contact, and
-          trade against.
+          Three plans on Hydro AI. Every plan sees the same market; what changes
+          is how much matching, tracking, and trade access you get — up to $1,000
+          a month for the full house.
         </p>
 
         <div className="mt-12 grid items-start gap-6 lg:grid-cols-3">
-          {terminalPlans.map((ticket) => (
+          {hydroAiPlans.map((ticket) => (
             <TicketCard key={ticket.ref} ticket={ticket} />
           ))}
         </div>
 
         <p className="mono-label mt-8 text-ink-faint">
-          Terminal is still in build · subscriptions taken now hold the 2026 rate
+          Hydro AI is still in build · subscriptions taken now hold the 2026 rate
           for the life of the account
         </p>
       </Container>

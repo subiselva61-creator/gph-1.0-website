@@ -14,45 +14,45 @@ const modules: {
 }[] = [
   {
     index: "01",
-    name: "Plant register",
+    name: "Matching AI engine",
+    body: "Scores every investor against every project — mandate, ticket size, stage preference, geography, and risk — and returns the best places to put capital, ranked.",
+    status: "In build",
+    progress: 72,
+  },
+  {
+    index: "02",
+    name: "Plant intelligence",
     body: "Every announced, financed, and operating green hydrogen plant — capacity, electrolyser type, power source, offtake, and commissioning date.",
     status: "Live",
     progress: 100,
   },
   {
-    index: "02",
-    name: "Capital register",
+    index: "03",
+    name: "Investor register",
     body: "The funds, sovereigns, utilities, and corporates writing the cheques, with ticket size, mandate, and the stage they are willing to enter at.",
     status: "In build",
     progress: 68,
   },
   {
-    index: "03",
+    index: "04",
     name: "Live tracking",
     body: "Financial close, construction milestones, commissioning, and curtailment — pushed the day the record changes, not the quarter after.",
     status: "In build",
     progress: 45,
   },
   {
-    index: "04",
-    name: "Trade desk",
+    index: "05",
+    name: "Trade & buy / sell",
     body: "Post a buy or sell interest in capacity, offtake, or certificates and meet the other side of it without a broker in the middle.",
     status: "Queued",
     progress: 12,
   },
   {
-    index: "05",
-    name: "Newswire",
-    body: "Policy, auctions, subsidies, and tenders, filtered down to the projects and counterparties already on your watchlist.",
+    index: "06",
+    name: "Live news & pipeline",
+    body: "Policy, auctions, and tenders filtered to your watchlist — plus projects staged from screening to financial close, with what still needs to clear.",
     status: "Live",
     progress: 100,
-  },
-  {
-    index: "06",
-    name: "Structured pipeline",
-    body: "Projects staged from screening to financial close, each stage annotated with what it still needs to clear and who has to sign.",
-    status: "In build",
-    progress: 55,
   },
 ];
 
@@ -63,28 +63,30 @@ const buildSummary = [
   { label: "Private beta", value: "Q3 2026" },
 ];
 
-export function Terminal() {
+export function HydroAI() {
   return (
     <section
-      id="terminal"
+      id="hydro-ai"
       className="border-b border-rule bg-paper-alt py-section"
     >
       <Container>
         <SectionLabel
-          left="Desk 01 · Terminal"
-          center="Green hydrogen intelligence"
+          left="Product 01 · Hydro AI"
+          center="Green hydrogen intelligence website"
           right="Status · in build"
         />
 
         <h2 className="display text-display mt-10 max-w-4xl">
-          Every plant, <em>and every cheque behind it.</em>
+          Hydro AI. <em>Match capital to the right plant.</em>
         </h2>
 
         <p className="mt-7 max-w-2xl text-body text-ink-muted">
-          The green hydrogen market is being priced off press releases and PDFs.
-          The terminal replaces that with one screen: what is being built, who is
-          funding it, what is trading, and what changed this morning. Six modules,
-          one subscription, no analyst retainer.
+          Hydro AI is the modern website we sell for the green hydrogen market —
+          plant intelligence, the investors behind each cheque, live tracking,
+          buy and sell trade, news, and a structured pipeline. At the centre sits
+          a matching AI engine that links the perfect investor to the perfect
+          project and shows you the best option to invest in. Still under build.
+          The rate is already set.
         </p>
 
         <ol className="mt-14 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
@@ -136,13 +138,13 @@ export function Terminal() {
         </dl>
 
         <p className="display text-h2 mt-14 max-w-3xl">
-          Still under construction. <em>The rate is not.</em>
+          Still under construction. <em>The selling point is already clear.</em>
         </p>
 
         <p className="mt-6 max-w-2xl text-body-sm text-ink-muted">
-          Subscriptions taken before the terminal opens hold the 2026 rate for
-          the life of the account — from $250 a month for a watchlist seat to
-          $1,000 for the full house.
+          Subscriptions taken before Hydro AI opens hold the 2026 rate for the
+          life of the account — from $250 a month for a watchlist seat to $1,000
+          for the full platform with AI matching.
         </p>
 
         <div className="mt-9 flex flex-wrap items-center gap-3">

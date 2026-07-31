@@ -5,7 +5,7 @@ export type Sector = {
   desk: string;
   name: string;
   status: string;
-  /** False while the desk is still being built. */
+  /** False while the product or desk is still being built. */
   trading: boolean;
   headline: string;
   blurb: string;
@@ -17,19 +17,19 @@ export type Sector = {
 
 export const sectors: Sector[] = [
   {
-    id: "terminal",
+    id: "hydro-ai",
     index: "01",
-    desk: "Terminal",
-    name: "Green hydrogen terminal",
+    desk: "Hydro AI",
+    name: "Hydro AI",
     status: "In build",
     trading: false,
-    headline: "Every plant, and every cheque behind it.",
+    headline: "The AI platform that matches capital to green hydrogen.",
     blurb:
-      "A subscription terminal for the green hydrogen market: the plants, the capital, the trades, and the news, on one screen.",
+      "A modern intelligence website for the green hydrogen market — plants, investors, live trade, news, and an AI engine that matches the right capital to the right project.",
     points: [
-      "Plant and capital registers",
-      "Live tracking and trade desk",
-      "Plans from $250 a month",
+      "AI investor–project matching",
+      "Plant, capital, trade, and news desks",
+      "Plans from $250 to $1,000 a month",
     ],
     href: "/our-proposal",
     hrefLabel: "Green hydrogen programme",

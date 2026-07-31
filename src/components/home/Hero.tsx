@@ -19,9 +19,10 @@ export function Hero() {
           </h1>
 
           <p className="mx-auto mt-7 max-w-2xl text-body text-ink-muted">
-            One house, three desks — a green hydrogen intelligence terminal,
-            second-life solar panels, and West African cashew trade. Each one
-            replaces a chain of intermediaries with a single counterparty.
+            One house, three products — Hydro AI for green hydrogen intelligence
+            and investor matching, second-life solar panels, and West African
+            cashew trade. Each one replaces a chain of intermediaries with a
+            single counterparty.
           </p>
 
           <ul className="mono-label mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-2 text-ink-faint [&>li:last-child>span]:hidden">
@@ -39,25 +40,28 @@ export function Hero() {
           </ul>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Cta href="/contact-us">Get started</Cta>
+            <Cta href="#sectors">Get started</Cta>
             <Cta href="#plans" variant="secondary">
               See the plans
             </Cta>
           </div>
         </div>
 
-        <div className="pb-[clamp(2.5rem,5vw,4rem)] pt-[clamp(2.5rem,5vw,4rem)]">
-          <div className="mx-auto max-w-5xl">
-            <ConsoleMockup />
-            <div className="mt-3 flex items-baseline justify-between gap-4">
-              <span className="mono-label text-ink-faint">
-                Terminal preview · desk 01
-              </span>
-              <span className="mono-label text-ink-faint">
-                Interface in build · 2026
-              </span>
+        <div className="pb-[clamp(1.5rem,3vw,2.5rem)] pt-[clamp(1.75rem,3.5vw,2.75rem)]">
+          <figure className="mx-auto max-w-4xl">
+            <figcaption className="mb-3 text-center">
+              <h2 className="display shiny-text text-h3 font-bold sm:text-h2">
+                Hydro AI Website
+              </h2>
+              <p className="mx-auto mt-2 max-w-xl text-body-sm text-ink-muted">
+                Plant and investor intelligence, live trade, news, and an AI
+                engine that matches capital to the right project.
+              </p>
+            </figcaption>
+            <div className="origin-top scale-[0.92] sm:scale-95">
+              <ConsoleMockup />
             </div>
-          </div>
+          </figure>
         </div>
       </Container>
     </section>

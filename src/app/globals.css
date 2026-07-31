@@ -489,6 +489,30 @@ html.lenis body {
   align-items: center;
 }
 
+/* Specular sweep for label type — a highlight travels across the glyphs */
+.shiny-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--ink) 0%,
+    var(--ink) 38%,
+    var(--accent) 50%,
+    var(--ink) 62%,
+    var(--ink) 100%
+  );
+  background-size: 220% auto;
+  background-position: 0% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shiny-sweep 4.5s linear infinite;
+}
+
+@keyframes shiny-sweep {
+  to {
+    background-position: -220% center;
+  }
+}
+
 /* Hero headline swap — two stacked lines crossfade */
 @keyframes headline-swap-out {
   0%,
@@ -546,6 +570,12 @@ html.lenis body {
   .headline-a,
   .headline-b {
     animation: none;
+  }
+
+  .shiny-text {
+    animation: none;
+    background-image: none;
+    color: var(--ink);
   }
 
   .headline-b {

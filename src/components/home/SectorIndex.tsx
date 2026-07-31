@@ -9,8 +9,8 @@ export function SectorIndex() {
     <section id="sectors" className="border-b border-rule py-section">
       <Container>
         <SectionLabel
-          left="3 desks · one house"
-          center="Terminal · Solar · Cashew"
+          left="3 products · one house"
+          center="Hydro AI · Solar · Cashew"
           right="Index · 2026.04"
         />
 
@@ -19,10 +19,11 @@ export function SectorIndex() {
         </h2>
 
         <p className="mt-7 max-w-2xl text-body text-ink-muted">
-          Green PowerHouse runs three desks out of one house. Two are trading
-          today; the third — the green hydrogen terminal — is being built now and
-          opens on subscription. Every desk shares the same balance sheet, the
-          same partners, and the same record-keeping.
+          Green PowerHouse sells three products out of one house. Two are trading
+          today; the third — Hydro AI, the green hydrogen intelligence website
+          with AI investor matching — is being built now and opens on
+          subscription. Every product shares the same balance sheet, the same
+          partners, and the same record-keeping.
         </p>
 
         <ol className="mt-14 grid gap-px border border-rule bg-rule lg:grid-cols-3">
@@ -30,7 +31,7 @@ export function SectorIndex() {
             <li key={sector.id} className="flex flex-col bg-paper p-6">
               <div className="flex items-baseline justify-between gap-3">
                 <span className="mono-label text-ink-faint">
-                  Desk {sector.index}
+                  {sector.index === "01" ? "Product" : "Desk"} {sector.index}
                 </span>
                 <span
                   className={cn(
@@ -68,7 +69,7 @@ export function SectorIndex() {
                   href={`#${sector.id}`}
                   className="focus-ring mono-label link-underline text-ink"
                 >
-                  Read the desk ↓
+                  Read more ↓
                 </a>
                 <Link
                   href={sector.href}

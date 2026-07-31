@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const activities = [
   {
     index: "01",
-    desk: "Terminal",
+    desk: "Hydro AI",
     label: "Plant update",
     detail: "Duqm · 1.2 GW",
     status: "Live",
@@ -18,12 +18,12 @@ const activities = [
   },
   {
     index: "02",
-    desk: "Terminal",
-    label: "Buy interest",
-    detail: "Offtake · 40 kt/yr",
+    desk: "Hydro AI",
+    label: "AI match",
+    detail: "Investor · Project",
     status: "Matched",
-    gauge: 78,
-    note: "Two counterparties sitting on the other side of your bid.",
+    gauge: 94,
+    note: "Top ranked capital for Duqm offtake. Three tickets fit the mandate.",
   },
   {
     index: "03",
@@ -54,20 +54,20 @@ export function DynamicIsland() {
     <section className="border-b border-rule py-section">
       <Container>
         <SectionLabel
-          left="Live activities · all three desks"
-          center="Hover a row to switch desks"
+          left="Live activities · all three products"
+          center="Hover a row to switch"
           right="iOS · iPadOS · watchOS"
         />
 
         <h2 className="display text-display mt-10 max-w-3xl">
-          The Island <em>knows which desk moved.</em>
+          The Island <em>knows which product moved.</em>
         </h2>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <p className="mono-label text-ink-faint">Now showing</p>
             <h3 className="display text-h2 mt-3">
-              <em>Three</em> desks, <em>one</em> Island.
+              <em>Three</em> products, <em>one</em> Island.
             </h3>
 
             <ul className="mt-8 border-t border-rule">
@@ -117,10 +117,10 @@ export function DynamicIsland() {
             </ul>
 
             <p className="mt-8 max-w-lg text-body text-ink-muted">
-              A plant reaching financial close, a panel lot clearing inspection, a
-              container leaving Abidjan — Green PowerHouse surfaces them in the
-              Dynamic Island without unlocking your phone or opening an app.
-              Hover a row to bring that desk up on the screen.
+              An AI match ranked, a plant reaching financial close, a panel lot
+              clearing inspection, a container leaving Abidjan — Green PowerHouse
+              surfaces them in the Dynamic Island without unlocking your phone or
+              opening an app. Hover a row to bring that product up on the screen.
             </p>
           </div>
 
@@ -158,7 +158,7 @@ export function DynamicIsland() {
                       <span className="mono-micro text-ink-faint">now</span>
                     </div>
                     <p className="mt-1.5 text-[0.8125rem] leading-tight text-ink">
-                      Watching three desks. You&apos;ll only see what moves.
+                      Watching three products. You&apos;ll only see what moves.
                     </p>
                   </div>
 

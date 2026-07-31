@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 export const THEME_STORAGE_KEY = "gph-theme";
 
 /** Runs before paint so the stored theme is applied without a flash. */
-export const themeInitScript = `(function(){try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t!=="dark"&&t!=="light"){t="dark"}document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();`;
+export const themeInitScript = `(function(){try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t!=="dark"&&t!=="light"){t="light"}document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","light")}})();`;
 
 /**
  * Both icons are rendered and CSS reveals the right one from the `data-theme`

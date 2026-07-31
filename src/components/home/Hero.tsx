@@ -47,20 +47,25 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="pb-[clamp(1.5rem,3vw,2.5rem)] pt-[clamp(1.75rem,3.5vw,2.75rem)]">
-          <figure className="mx-auto max-w-4xl">
-            <figcaption className="mb-3 text-center">
-              <h2 className="display shiny-text text-h3 font-bold sm:text-h2">
-                Hydro AI Website
-              </h2>
-              <p className="mx-auto mt-2 max-w-xl text-body-sm text-ink-muted">
-                Plant and investor intelligence, live trade, news, and an AI
-                engine that matches capital to the right project.
+        <div className="pb-[clamp(2.5rem,5vw,4rem)] pt-[clamp(2.5rem,5vw,4rem)]">
+          <figure className="mx-auto max-w-5xl">
+            <figcaption className="mb-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-rule pb-3">
+                <span className="mono-label shiny-text font-bold">
+                  Hydro AI Website · product 01
+                </span>
+                <span className="mono-label text-ink-faint">
+                  Interface in build · 2026
+                </span>
+              </div>
+              <p className="mt-3 text-body-sm text-ink-muted">
+                This is Hydro AI — the green hydrogen intelligence platform we
+                sell. Plant and investor registers, live tracking, buy and sell
+                trade, live news, and an AI engine that matches the right
+                investor to the right project.
               </p>
             </figcaption>
-            <div className="origin-top scale-[0.92] sm:scale-95">
-              <ConsoleMockup />
-            </div>
+            <ConsoleMockup />
           </figure>
         </div>
       </Container>

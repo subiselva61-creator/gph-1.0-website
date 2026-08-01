@@ -9,21 +9,22 @@ export function SectorIndex() {
     <section id="sectors" className="border-b border-rule py-section">
       <Container>
         <SectionLabel
-          left="3 products · one house"
+          left="3 ventures · our own capital"
           center="Hydro AI · Solar · Cashew"
           right="Index · 2026.04"
         />
 
         <h2 className="display text-display mt-10 max-w-3xl">
-          Three things we sell. <em>Nothing else.</em>
+          Where we back <em>our own convictions.</em>
         </h2>
 
         <p className="mt-7 max-w-2xl text-body text-ink-muted">
-          Green PowerHouse sells three products out of one house. Two are trading
-          today; the third — Hydro AI, the green hydrogen intelligence website
-          with AI investor matching — is being built now and opens on
-          subscription. Every product shares the same balance sheet, the same
-          partners, and the same record-keeping.
+          Private capital deployment is not a recommendation we make from a
+          distance. These are three ventures Green PowerHouse has originated,
+          funded and operates itself, in energy and industrial supply. Two are
+          trading today; the third — Hydro AI — is being built now and opens on
+          subscription. Each shares the same balance sheet, the same partners,
+          and the same record-keeping.
         </p>
 
         <ol className="mt-14 grid gap-px border border-rule bg-rule lg:grid-cols-3">

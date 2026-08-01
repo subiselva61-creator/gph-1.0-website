@@ -1,6 +1,5 @@
 import { Cta } from "@/components/meridian/Cta";
 import { SectionLabel } from "@/components/meridian/SectionLabel";
-import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 
 type Ticket = {
@@ -121,7 +120,7 @@ function TicketCard({ ticket }: { ticket: Ticket }) {
       )}
 
       <header className="border-b border-rule p-5">
-        <h3 className="text-h3 text-ink">{ticket.name}</h3>
+        <h4 className="text-h3 text-ink">{ticket.name}</h4>
         <p className="mono-label mt-2 text-ink-faint">{ticket.ref}</p>
         <p className="mt-4 text-body-sm text-ink-muted">{ticket.blurb}</p>
       </header>
@@ -199,37 +198,37 @@ function TicketCard({ ticket }: { ticket: Ticket }) {
   );
 }
 
+/** Flip to true when ready to show Hydro AI subscription plans again. */
+export const SHOW_HYDRO_AI_PLANS = false;
+
+/** The plans block — rendered inside the Hydro AI section, not on its own. */
 export function PricingLedger() {
+  if (!SHOW_HYDRO_AI_PLANS) return null;
+
   return (
-    <section id="plans" className="border-b border-rule py-section">
-      <Container>
-        <SectionLabel
-          left="Product 01 · Hydro AI"
-          center="Three plans · pick one"
-          right="Priced · 2026.04"
-        />
+    <div id="plans" className="mt-16 border-t border-rule pt-14">
+      <SectionLabel
+        left="Plans · Hydro AI"
+        center="Three plans · pick one"
+        right="Priced · 2026.04"
+      />
 
-        <h2 className="display text-display mt-10 max-w-3xl">
-          Pick a mandate. <em>Real figures, no hidden fees.</em>
-        </h2>
+      <h3 className="display text-h2 mt-10 max-w-3xl">
+        Pick a mandate. <em>Real figures, no hidden fees.</em>
+      </h3>
 
-        <p className="mt-7 max-w-2xl text-body text-ink-muted">
-          Three plans on Hydro AI. Every plan sees the same market; what changes
-          is how much matching, tracking, and trade access you get — up to $1,000
-          a month for the full house.
-        </p>
+      <p className="mt-7 max-w-2xl text-body text-ink-muted">
+        Every plan sees the same market; what changes is how much matching,
+        tracking, and trade access you get — up to $1,000 a month for the full
+        house. Subscriptions taken before Hydro AI opens hold the 2026 rate for
+        the life of the account.
+      </p>
 
-        <div className="mt-12 grid items-start gap-6 lg:grid-cols-3">
-          {hydroAiPlans.map((ticket) => (
-            <TicketCard key={ticket.ref} ticket={ticket} />
-          ))}
-        </div>
-
-        <p className="mono-label mt-8 text-ink-faint">
-          Hydro AI is still in build · subscriptions taken now hold the 2026 rate
-          for the life of the account
-        </p>
-      </Container>
-    </section>
+      <div className="mt-12 grid items-start gap-6 lg:grid-cols-3">
+        {hydroAiPlans.map((ticket) => (
+          <TicketCard key={ticket.ref} ticket={ticket} />
+        ))}
+      </div>
+    </div>
   );
 }

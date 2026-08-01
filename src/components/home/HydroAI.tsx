@@ -1,3 +1,5 @@
+import { ConsoleMockup } from "@/components/home/ConsoleMockup";
+import { PricingLedger } from "@/components/home/PricingLedger";
 import { Cta } from "@/components/meridian/Cta";
 import { SectionLabel } from "@/components/meridian/SectionLabel";
 import { Container } from "@/components/ui/Container";
@@ -89,6 +91,25 @@ export function HydroAI() {
           The rate is already set.
         </p>
 
+        <figure className="mt-14">
+          <figcaption className="mb-3">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-rule pb-3">
+              <span className="mono-label shiny-text font-bold">
+                Hydro AI · principal investment 01
+              </span>
+              <span className="mono-label text-ink-faint">
+                Interface in build · 2026
+              </span>
+            </div>
+            <p className="mt-3 max-w-2xl text-body-sm text-ink-muted">
+              One of the ventures we have chosen to build and fund ourselves —
+              capital committed to our own conviction, not only recommended to
+              clients.
+            </p>
+          </figcaption>
+          <ConsoleMockup />
+        </figure>
+
         <ol className="mt-14 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
           {modules.map((module) => (
             <li key={module.index} className="flex flex-col bg-paper p-5">
@@ -137,20 +158,12 @@ export function HydroAI() {
           ))}
         </dl>
 
-        <p className="display text-h2 mt-14 max-w-3xl">
-          Still under construction. <em>The selling point is already clear.</em>
-        </p>
+        <PricingLedger />
 
-        <p className="mt-6 max-w-2xl text-body-sm text-ink-muted">
-          Subscriptions taken before Hydro AI opens hold the 2026 rate for the
-          life of the account — from $250 a month for a watchlist seat to $1,000
-          for the full platform with AI matching.
-        </p>
-
-        <div className="mt-9 flex flex-wrap items-center gap-3">
-          <Cta href="#plans">See the three plans</Cta>
-          <Cta href="/contact-us" variant="secondary">
-            Join the private beta
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <Cta href="/contact-us">Join the private beta</Cta>
+          <Cta href="/our-proposal" variant="secondary">
+            Green hydrogen programme
           </Cta>
         </div>
       </Container>

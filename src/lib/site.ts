@@ -56,6 +56,9 @@ export const navGroups: NavEntry[] = [
   {
     label: "About Us",
     children: [
+      { href: "/#firm", label: "Who We Are" },
+      { href: "/#activities", label: "Activities" },
+      { href: "/#founder", label: "Founder" },
       { href: "/our-proposal", label: "Our Proposal" },
       { href: "/market-insights", label: "Market Insights" },
       { href: "/our-team", label: "Our Team" },
@@ -67,7 +70,6 @@ export const navGroups: NavEntry[] = [
       { href: "/#hydro-ai", label: "Hydro AI" },
       { href: "/solar-panels", label: "Solar" },
       { href: "/agriculture", label: "Agriculture" },
-      { href: "/#plans", label: "Plans & Pricing" },
     ],
   },
   { href: "/contact-us", label: "Contact" },

@@ -32,8 +32,14 @@ export function Logo({
   const content = (
     <>
       <span
-        className="relative shrink-0"
-        style={{ width: dim.mark, height: dim.mark }}
+        className="shiny-mark relative shrink-0"
+        style={
+          {
+            width: dim.mark,
+            height: dim.mark,
+            "--mark-mask": "url(/logo-mask.png)",
+          } as React.CSSProperties
+        }
       >
         <Image
           src="/logo.png"
@@ -48,10 +54,11 @@ export function Logo({
       {showWordmark ? (
         <span
           className={cn(
-            "font-medium tracking-[-0.02em] text-ink",
+            "shiny-text font-medium tracking-[-0.02em] text-ink",
             dim.text,
             wordmarkClassName,
           )}
+          style={{ "--shine-hi": "#ffffff" } as React.CSSProperties}
         >
           {siteConfig.name}
         </span>

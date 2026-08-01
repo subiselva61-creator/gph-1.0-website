@@ -2,6 +2,7 @@
 
 export const images = {
   founderPortrait: "/founder-stephan-pouyat.png",
+  founderPortraitBackdrop: "/founder-stephan-pouyat-backdrop.jpg",
   heroHome:
     "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1600&q=80",
   heroHydrogen:

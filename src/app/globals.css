@@ -489,13 +489,17 @@ html.lenis body {
   align-items: center;
 }
 
-/* Specular sweep for label type — a highlight travels across the glyphs */
+/*
+ * Specular sweep for label type — a highlight travels across the glyphs.
+ * --shine-hi sets the highlight colour; accent by default, white for the
+ * brand wordmark so it glints in step with the logo mark beside it.
+ */
 .shiny-text {
   background-image: linear-gradient(
     100deg,
     var(--ink) 0%,
     var(--ink) 38%,
-    var(--accent) 50%,
+    var(--shine-hi, var(--accent)) 50%,
     var(--ink) 62%,
     var(--ink) 100%
   );
@@ -504,6 +508,34 @@ html.lenis body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: shiny-sweep 4.5s linear infinite;
+}
+
+/*
+ * Same sweep for an image mark. The highlight is masked to the artwork's own
+ * alpha via --mark-mask, so it never streaks across the surrounding paper.
+ */
+.shiny-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    100deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 60%
+  );
+  background-size: 220% auto;
+  background-position: 0% center;
+  -webkit-mask-image: var(--mark-mask);
+  mask-image: var(--mark-mask);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   animation: shiny-sweep 4.5s linear infinite;
 }
 
@@ -576,6 +608,11 @@ html.lenis body {
     animation: none;
     background-image: none;
     color: var(--ink);
+  }
+
+  .shiny-mark::after {
+    animation: none;
+    opacity: 0;
   }
 
   .headline-b {

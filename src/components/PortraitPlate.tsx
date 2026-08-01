@@ -5,11 +5,16 @@ import { useRef } from "react";
 import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
-type FounderPortraitProps = {
+type PortraitPlateProps = {
+  /** Cut-out subject with a transparent surround — the sharp foreground layer. */
   src: string;
   alt: string;
+  /** Same frame, uncut. Blurred and set behind the subject for depth. */
+  backdropSrc?: string;
   /** Printed on the chip that floats above the plate. */
   stamp?: string;
+  /** Rendered width at the largest breakpoint, for image sizing. */
+  sizes?: string;
   className?: string;
 };
 
@@ -17,19 +22,24 @@ type FounderPortraitProps = {
 const MAX_TILT = 9;
 
 /**
- * Portrait plate on a 3D parallax rig: the frame tilts toward the pointer, the
- * photograph inside counter-shifts for depth, and the whole plate drifts as the
- * section scrolls. Falls back to a plain framed photo without a fine pointer or
- * under prefers-reduced-motion.
+ * Portrait plate built from two registered layers of the same photograph: a
+ * blurred backdrop and the cut-out subject in front. The subject travels
+ * further than the backdrop on both pointer tilt and scroll, so the gap between
+ * them reads as depth. Degrades to a still framed photo without a fine pointer
+ * or under prefers-reduced-motion.
  */
-export function FounderPortrait({
+export function PortraitPlate({
   src,
   alt,
+  backdropSrc,
   stamp = "Dubai · 2026",
+  sizes = "(max-width: 1024px) 70vw, 20rem",
   className,
-}: FounderPortraitProps) {
+}: PortraitPlateProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const plateRef = useRef<HTMLDivElement>(null);
+  const backDriftRef = useRef<HTMLDivElement>(null);
+  const backShiftRef = useRef<HTMLDivElement>(null);
   const driftRef = useRef<HTMLDivElement>(null);
   const shiftRef = useRef<HTMLDivElement>(null);
   const glareRef = useRef<HTMLDivElement>(null);
@@ -46,21 +56,30 @@ export function FounderPortrait({
       if (!root || !plate || !drift || !shift || !glare || !chip) return;
       if (prefersReducedMotion()) return;
 
-      // The photograph travels slower than its frame on scroll.
+      const backDrift = backDriftRef.current;
+      const backShift = backShiftRef.current;
+
+      // On scroll the subject rises faster than the ground behind it.
+      const scrollTrigger = {
+        trigger: root,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      } as const;
+
       gsap.fromTo(
         drift,
-        { yPercent: -5 },
-        {
-          yPercent: 5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
+        { yPercent: -6 },
+        { yPercent: 6, ease: "none", scrollTrigger },
       );
+
+      if (backDrift) {
+        gsap.fromTo(
+          backDrift,
+          { yPercent: -2.5 },
+          { yPercent: 2.5, ease: "none", scrollTrigger },
+        );
+      }
 
       // Pointer tilt is a fine-pointer affordance only.
       if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
@@ -76,6 +95,13 @@ export function FounderPortrait({
       const glareY = gsap.quickTo(glare, "yPercent", { duration: 0.6, ease });
       const chipZ = gsap.quickTo(chip, "z", { duration: 0.7, ease });
 
+      const backX = backShift
+        ? gsap.quickTo(backShift, "xPercent", { duration: 1.1, ease })
+        : null;
+      const backY = backShift
+        ? gsap.quickTo(backShift, "yPercent", { duration: 1.1, ease })
+        : null;
+
       const onMove = (event: PointerEvent) => {
         const rect = root.getBoundingClientRect();
         const px = (event.clientX - rect.left) / rect.width - 0.5;
@@ -83,8 +109,11 @@ export function FounderPortrait({
 
         rotateY(px * MAX_TILT * 2);
         rotateX(-py * MAX_TILT * 2);
-        shiftX(-px * 6);
-        shiftY(-py * 6);
+        // Subject leads, backdrop lags — the separation is the depth cue.
+        shiftX(-px * 7);
+        shiftY(-py * 7);
+        backX?.(-px * 2.5);
+        backY?.(-py * 2.5);
         glareX(px * 70);
         glareY(py * 70);
         chipZ(34);
@@ -96,6 +125,8 @@ export function FounderPortrait({
         rotateY(0);
         shiftX(0);
         shiftY(0);
+        backX?.(0);
+        backY?.(0);
         glareX(0);
         glareY(0);
         chipZ(0);
@@ -121,14 +152,37 @@ export function FounderPortrait({
       >
         {/* overflow-hidden lives inside the 3D context, never on it */}
         <div className="hatch absolute inset-0 overflow-hidden border border-rule bg-paper-invert">
+          {backdropSrc && (
+            <>
+              {/* Oversized so the blur never bleeds a soft edge into the frame */}
+              <div ref={backDriftRef} className="absolute inset-[-14%]">
+                <div ref={backShiftRef} className="absolute inset-0">
+                  <Image
+                    src={backdropSrc}
+                    alt=""
+                    aria-hidden
+                    fill
+                    sizes={sizes}
+                    className="scale-[0.98] object-cover object-center blur-[9px] saturate-[0.9]"
+                  />
+                </div>
+              </div>
+              {/* Scrim: settles the backdrop so the sharp subject reads first */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-paper-invert/40"
+              />
+            </>
+          )}
+
           <div ref={driftRef} className="absolute inset-[-8%]">
             <div ref={shiftRef} className="absolute inset-0">
               <Image
                 src={src}
                 alt={alt}
                 fill
-                sizes="(max-width: 1024px) 70vw, 20rem"
-                className="img-graded scale-[1.04] object-cover object-center"
+                sizes={sizes}
+                className="img-graded scale-[1.10] object-cover object-center"
               />
             </div>
           </div>

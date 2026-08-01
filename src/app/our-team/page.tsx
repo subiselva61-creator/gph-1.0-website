@@ -3,12 +3,12 @@ import { CloseCTA } from "@/components/meridian/CloseCTA";
 import { PageHero } from "@/components/meridian/PageHero";
 import { SectionLabel } from "@/components/meridian/SectionLabel";
 import { SheetSection } from "@/components/meridian/SheetSection";
+import { PortraitPlate } from "@/components/PortraitPlate";
 import { TeamMemberCard } from "@/components/TeamMemberCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 import { images } from "@/lib/images";
 import { ceoMember, teamMembers } from "@/lib/team-data";
-import { getInitials } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Our Team",
@@ -44,12 +44,14 @@ export default function OurTeamPage() {
           </>
         }
       >
-        <div className="mt-10 grid gap-10 border-t border-rule pt-10 lg:grid-cols-[16rem_1fr] lg:gap-16">
-          <div className="hatch flex aspect-4/5 max-w-64 items-center justify-center border border-rule">
-            <span className="display text-[clamp(2.5rem,5vw,3.5rem)] text-ink">
-              {getInitials(ceoMember.name)}
-            </span>
-          </div>
+        <div className="mt-10 grid gap-10 border-t border-rule pt-10 lg:grid-cols-[21rem_1fr] lg:gap-16">
+          <PortraitPlate
+            src={images.founderPortrait}
+            backdropSrc={images.founderPortraitBackdrop}
+            alt={`Portrait of ${ceoMember.name}, ${ceoMember.title}`}
+            stamp="№ 00 · Dubai"
+            className="w-full max-w-84"
+          />
 
           <Reveal>
             <p className="mono-label text-ink-faint">№ 00 · Plate · 35mm</p>

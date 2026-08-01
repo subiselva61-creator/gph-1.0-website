@@ -1,7 +1,7 @@
-import { FounderPortrait } from "@/components/home/FounderPortrait";
 import { Cta } from "@/components/meridian/Cta";
 import { SectionLabel } from "@/components/meridian/SectionLabel";
 import { Reveal } from "@/components/motion/Reveal";
+import { PortraitPlate } from "@/components/PortraitPlate";
 import { Container } from "@/components/ui/Container";
 import { founder } from "@/lib/home/firm";
 import { images } from "@/lib/images";
@@ -20,8 +20,9 @@ export function Founder() {
         />
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[21rem_1fr] lg:gap-16">
-          <FounderPortrait
+          <PortraitPlate
             src={images.founderPortrait}
+            backdropSrc={images.founderPortraitBackdrop}
             alt={`Portrait of ${founder.name}, ${founder.role}`}
             className="w-full max-w-84"
           />

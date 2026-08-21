@@ -4,6 +4,7 @@ import { FirmProfile } from "@/components/home/FirmProfile";
 import { Founder } from "@/components/home/Founder";
 import { Hero } from "@/components/home/Hero";
 import { Interviews } from "@/components/home/Interviews";
+import { BrandTicker } from "@/components/meridian/BrandTicker";
 import { CloseCTA } from "@/components/meridian/CloseCTA";
 import { siteConfig } from "@/lib/site";
 
@@ -24,6 +25,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <BrandTicker />
       <FirmProfile />
       <Disciplines />
       <Founder />

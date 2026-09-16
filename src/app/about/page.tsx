@@ -76,9 +76,6 @@ export default function AboutPage() {
         </Reveal>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Cta href="/our-team" variant="secondary">
-            Our team
-          </Cta>
           <Cta href="/contact-us" variant="secondary">
             Contact
           </Cta>

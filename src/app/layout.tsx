@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
-import { AnnouncementBar } from "@/components/meridian/AnnouncementBar";
 import { themeInitScript } from "@/components/meridian/ThemeToggle";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -84,7 +83,6 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-screen flex-col bg-paper font-sans text-ink">
         <GsapProvider>
-          <AnnouncementBar />
           <Navbar />
           <main className="min-w-0 flex-1 overflow-x-clip">{children}</main>
           <Footer />

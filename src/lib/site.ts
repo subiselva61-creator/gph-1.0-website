@@ -46,7 +46,6 @@ export const sitePages: NavLink[] = [
   { href: "/solar-panels", label: "Solar Panels" },
   { href: "/agriculture", label: "Agriculture" },
   { href: "/market-insights", label: "Market Insights" },
-  { href: "/our-team", label: "Our Team" },
   { href: "/contact-us", label: "Contact" },
 ];
 
@@ -58,8 +57,6 @@ export const navGroups: NavEntry[] = [
     children: [
       { href: "/#firm", label: "Who We Are" },
       { href: "/#activities", label: "Activities" },
-      { href: "/#founder", label: "Founder" },
-      { href: "/our-team", label: "Our Team" },
     ],
   },
   {
@@ -78,12 +75,16 @@ export const navGroups: NavEntry[] = [
 ];
 
 export const footerLinks: NavLink[] = [
-  { href: "/our-proposal", label: "Green Hydrogen" },
-  { href: "/solar-panels", label: "Solar Panels" },
-  { href: "/agriculture", label: "Agriculture" },
-  { href: "/about", label: "About Us" },
-  { href: "/market-insights", label: "Market Insights" },
-  { href: "/our-team", label: "Our Team" },
+  { href: "/", label: "Home" },
+  { href: "/#firm", label: "Who We Are" },
+  { href: "/#activities", label: "Activities" },
+  { href: "/#corporate-strategy", label: "Corporate strategy" },
+  { href: "/#mergers-acquisitions", label: "Mergers & acquisitions" },
+  { href: "/#private-capital", label: "Private capital deployment" },
+  {
+    href: "/#industrial-transformation",
+    label: "Industrial transformation",
+  },
   { href: "/contact-us", label: "Contact" },
 ];
 

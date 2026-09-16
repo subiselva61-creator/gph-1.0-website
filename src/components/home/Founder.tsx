@@ -1,4 +1,3 @@
-import { Cta } from "@/components/meridian/Cta";
 import { SectionLabel } from "@/components/meridian/SectionLabel";
 import { Reveal } from "@/components/motion/Reveal";
 import { PortraitPlate } from "@/components/PortraitPlate";
@@ -29,7 +28,6 @@ export function Founder() {
 
           <Reveal>
             <h2 className="display text-display">{founder.name}</h2>
-            <p className="mono-label mt-3 text-accent">{founder.role}</p>
 
             {founder.body.map((paragraph) => (
               <p
@@ -63,12 +61,6 @@ export function Founder() {
                 </li>
               ))}
             </ul>
-
-            <div className="mt-9">
-              <Cta href="/our-team" variant="secondary">
-                Meet the house
-              </Cta>
-            </div>
           </Reveal>
         </div>
       </Container>

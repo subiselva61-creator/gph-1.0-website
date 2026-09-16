@@ -2,34 +2,18 @@ import Link from "next/link";
 import { SplitWordmark } from "@/components/meridian/SplitWordmark";
 import { SubscribeField } from "@/components/meridian/SubscribeField";
 import { Container } from "@/components/ui/Container";
-import { siteConfig } from "@/lib/site";
+import { isNavGroup, navGroups, siteConfig } from "@/lib/site";
 
-const columns = [
-  {
-    heading: "product",
-    links: [
-      { href: "/our-proposal", label: "Green Hydrogen" },
-      { href: "/solar-panels", label: "Solar Panels" },
-      { href: "/agriculture", label: "Agriculture" },
-    ],
-  },
-  {
-    heading: "resources",
-    links: [
-      { href: "/about", label: "About Us" },
-      { href: "/market-insights", label: "Market Insights" },
-      { href: "/our-team", label: "Our Team" },
-    ],
-  },
-  {
-    heading: "contact",
-    links: [
-      { href: "/contact-us", label: "Talk to an advisor" },
-      { href: `mailto:${siteConfig.email}`, label: "Email us", external: true },
-      { href: siteConfig.phoneHref, label: "Call us", external: true },
-    ],
-  },
-];
+const columns = navGroups
+  .filter((entry) => isNavGroup(entry) || entry.href === "/contact-us")
+  .map((entry) =>
+    isNavGroup(entry)
+      ? { heading: entry.label.toLowerCase(), links: entry.children }
+      : {
+          heading: entry.label.toLowerCase(),
+          links: [{ href: entry.href, label: "Contact us" }],
+        },
+  );
 
 const socials = [
   { href: siteConfig.social.linkedin.href, label: "LinkedIn" },
@@ -75,21 +59,12 @@ export function Footer() {
                 <ul className="mt-4 flex flex-col gap-3">
                   {column.links.map((link) => (
                     <li key={link.label}>
-                      {"external" in link && link.external ? (
-                        <a
-                          href={link.href}
-                          className="mono-label text-ink transition-colors hover:text-accent"
-                        >
-                          {link.label}
-                        </a>
-                      ) : (
-                        <Link
-                          href={link.href}
-                          className="mono-label text-ink transition-colors hover:text-accent"
-                        >
-                          {link.label}
-                        </Link>
-                      )}
+                      <Link
+                        href={link.href}
+                        className="mono-label text-ink transition-colors hover:text-accent"
+                      >
+                        {link.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>

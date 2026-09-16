@@ -104,7 +104,7 @@ html[data-theme="dark"] {
   --space-container-x: clamp(1.25rem, 4vw, 3rem);
   --prose-max: 40rem;
 
-  --nav-height: 3.75rem;
+  --nav-height: 4.5rem;
   --canvas-max: 84rem;
   --radius-pill: 999px;
 }

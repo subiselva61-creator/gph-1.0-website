@@ -111,7 +111,7 @@ export function Navbar() {
         className="mx-auto flex h-[var(--nav-height)] w-full max-w-[var(--canvas-max)] items-center justify-between gap-6 px-[var(--space-container-x)]"
         aria-label="Primary"
       >
-        <Logo size="xs" className="min-w-0 shrink-0" />
+        <Logo size="md" className="min-w-0 shrink-0" wordmarkClassName="text-lg leading-none" />
 
         <ul className="hidden items-center gap-8 lg:flex">
           {navGroups.map((entry) =>

@@ -46,10 +46,11 @@ export const sitePages: NavLink[] = [
   { href: "/solar-panels", label: "Solar Panels" },
   { href: "/agriculture", label: "Agriculture" },
   { href: "/market-insights", label: "Market Insights" },
+  { href: "/book", label: "Reading" },
   { href: "/contact-us", label: "Contact" },
 ];
 
-/** Primary nav — flat links + dropdown groups */
+/** Primary nav — flat links + dropdown groups. Reading is a special Navbar item. */
 export const navGroups: NavEntry[] = [
   { href: "/", label: "Home" },
   {
@@ -74,6 +75,7 @@ export const navGroups: NavEntry[] = [
   { href: "/contact-us", label: "Contact" },
 ];
 
+/** Plain footer sitemap links (Reading included as text). */
 export const footerLinks: NavLink[] = [
   { href: "/", label: "Home" },
   { href: "/#firm", label: "Who We Are" },
@@ -85,8 +87,14 @@ export const footerLinks: NavLink[] = [
     href: "/#industrial-transformation",
     label: "Industrial transformation",
   },
+  { href: "/book", label: "Reading" },
   { href: "/contact-us", label: "Contact" },
 ];
+
+export const readingNav = {
+  href: "/book",
+  label: "Reading",
+} as const;
 
 export function getPageNavItem(pathname: string) {
   return sitePages.find((item) => item.href === pathname) ?? sitePages[0];

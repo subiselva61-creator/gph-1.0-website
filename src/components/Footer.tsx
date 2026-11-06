@@ -2,18 +2,31 @@ import Link from "next/link";
 import { SplitWordmark } from "@/components/meridian/SplitWordmark";
 import { SubscribeField } from "@/components/meridian/SubscribeField";
 import { Container } from "@/components/ui/Container";
-import { isNavGroup, navGroups, siteConfig } from "@/lib/site";
+import {
+  isNavGroup,
+  navGroups,
+  readingNav,
+  siteConfig,
+} from "@/lib/site";
 
-const columns = navGroups
-  .filter((entry) => isNavGroup(entry) || entry.href === "/contact-us")
-  .map((entry) =>
-    isNavGroup(entry)
-      ? { heading: entry.label.toLowerCase(), links: entry.children }
-      : {
-          heading: entry.label.toLowerCase(),
-          links: [{ href: entry.href, label: "Contact us" }],
-        },
-  );
+const groupColumns = navGroups
+  .filter(isNavGroup)
+  .map((entry) => ({
+    heading: entry.label.toLowerCase(),
+    links: entry.children,
+  }));
+
+const columns = [
+  ...groupColumns,
+  {
+    heading: "reading",
+    links: [{ href: readingNav.href, label: readingNav.label }],
+  },
+  {
+    heading: "contact",
+    links: [{ href: "/contact-us", label: "Contact us" }],
+  },
+];
 
 const socials = [
   { href: siteConfig.social.linkedin.href, label: "LinkedIn" },
@@ -52,7 +65,7 @@ export function Footer() {
             <SubscribeField />
           </div>
 
-          <div className="mt-16 grid gap-10 border-t border-rule pt-10 sm:grid-cols-3">
+          <div className="mt-16 grid gap-10 border-t border-rule pt-10 sm:grid-cols-2 lg:grid-cols-4">
             {columns.map((column) => (
               <div key={column.heading}>
                 <h3 className="mono-label text-ink-faint">{column.heading}</h3>

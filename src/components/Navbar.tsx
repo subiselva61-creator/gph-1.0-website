@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/meridian/ThemeToggle";
+import {
+  ReadingDesktop,
+  ReadingMobileCard,
+} from "@/components/nav/ReadingNav";
 import {
   isNavGroup,
   navGroups,
@@ -62,7 +66,7 @@ function NavDropdown({
         <span
           aria-hidden
           className={cn(
-            "inline-block text-[0.55rem] transition-transform",
+            "inline-block text-[0.55rem] transition-transform motion-reduce:transition-none",
             open && "rotate-180",
           )}
         >
@@ -71,7 +75,7 @@ function NavDropdown({
       </button>
       <div
         className={cn(
-          "absolute left-0 top-full z-50 min-w-[13rem] pt-2 transition-opacity duration-150",
+          "absolute left-0 top-full z-50 min-w-[13rem] pt-2 motion-safe:transition-opacity motion-safe:duration-150",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0",
@@ -86,7 +90,9 @@ function NavDropdown({
                   href={child.href}
                   className={cn(
                     "focus-ring mono-label block px-4 py-3 transition-colors hover:bg-paper-alt",
-                    childActive ? "text-accent" : "text-ink-muted hover:text-ink",
+                    childActive
+                      ? "text-accent"
+                      : "text-ink-muted hover:text-ink",
                   )}
                 >
                   {child.label}
@@ -105,27 +111,81 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
 
+  const desktopItems: ReactNode[] = [];
+  for (const entry of navGroups) {
+    if (!isNavGroup(entry) && entry.href === "/contact-us") continue;
+
+    if (isNavGroup(entry)) {
+      desktopItems.push(
+        <NavDropdown key={entry.label} group={entry} pathname={pathname} />,
+      );
+      if (entry.label === "Our Products") {
+        desktopItems.push(
+          <ReadingDesktop key="reading" pathname={pathname} />,
+        );
+      }
+    } else {
+      desktopItems.push(
+        <NavItem key={entry.href} item={entry} pathname={pathname} />,
+      );
+    }
+  }
+
+  const mobileItems: ReactNode[] = [];
+  for (const entry of navGroups) {
+    if (isNavGroup(entry)) {
+      mobileItems.push(
+        <li key={entry.label} className="py-3">
+          <span className="mono-label text-ink-faint">{entry.label}</span>
+          <ul className="mt-2 flex flex-col gap-2 pl-3">
+            {entry.children.map((child) => (
+              <li key={child.href}>
+                <Link
+                  href={child.href}
+                  onClick={closeMenu}
+                  className="mono-label text-ink-muted transition-colors hover:text-ink"
+                >
+                  {child.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </li>,
+      );
+      if (entry.label === "Our Products") {
+        mobileItems.push(
+          <ReadingMobileCard key="reading-mobile" onNavigate={closeMenu} />,
+        );
+      }
+      continue;
+    }
+
+    mobileItems.push(
+      <li key={entry.href} className="py-3.5">
+        <Link
+          href={entry.href}
+          onClick={closeMenu}
+          className="mono-label text-ink transition-colors hover:text-accent"
+        >
+          {entry.label}
+        </Link>
+      </li>,
+    );
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-paper/95 backdrop-blur-sm">
       <nav
         className="mx-auto flex h-[var(--nav-height)] w-full max-w-[var(--canvas-max)] items-center justify-between gap-6 px-[var(--space-container-x)]"
         aria-label="Primary"
       >
-        <Logo size="md" className="min-w-0 shrink-0" wordmarkClassName="text-lg leading-none" />
+        <Logo
+          size="md"
+          className="min-w-0 shrink-0"
+          wordmarkClassName="text-lg leading-none"
+        />
 
-        <ul className="hidden items-center gap-8 lg:flex">
-          {navGroups.map((entry) =>
-            isNavGroup(entry) ? (
-              <NavDropdown
-                key={entry.label}
-                group={entry}
-                pathname={pathname}
-              />
-            ) : entry.href === "/contact-us" ? null : (
-              <NavItem key={entry.href} item={entry} pathname={pathname} />
-            ),
-          )}
-        </ul>
+        <ul className="hidden items-center gap-8 lg:flex">{desktopItems}</ul>
 
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
@@ -145,19 +205,19 @@ export function Navbar() {
             <span aria-hidden className="flex flex-col gap-[3px]">
               <span
                 className={cn(
-                  "block h-[1px] w-3.5 bg-current transition-transform",
+                  "block h-[1px] w-3.5 bg-current transition-transform motion-reduce:transition-none",
                   menuOpen && "translate-y-[4px] rotate-45",
                 )}
               />
               <span
                 className={cn(
-                  "block h-[1px] w-3.5 bg-current transition-opacity",
+                  "block h-[1px] w-3.5 bg-current transition-opacity motion-reduce:transition-none",
                   menuOpen && "opacity-0",
                 )}
               />
               <span
                 className={cn(
-                  "block h-[1px] w-3.5 bg-current transition-transform",
+                  "block h-[1px] w-3.5 bg-current transition-transform motion-reduce:transition-none",
                   menuOpen && "-translate-y-[4px] -rotate-45",
                 )}
               />
@@ -166,46 +226,13 @@ export function Navbar() {
         </div>
       </nav>
 
-      {menuOpen && (
+      {menuOpen ? (
         <div className="border-t border-rule bg-paper lg:hidden">
           <ul className="mx-auto w-full max-w-[var(--canvas-max)] divide-y divide-rule px-[var(--space-container-x)]">
-            {navGroups.flatMap((entry) =>
-              isNavGroup(entry)
-                ? [
-                    <li key={entry.label} className="py-3">
-                      <span className="mono-label text-ink-faint">
-                        {entry.label}
-                      </span>
-                      <ul className="mt-2 flex flex-col gap-2 pl-3">
-                        {entry.children.map((child) => (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              onClick={closeMenu}
-                              className="mono-label text-ink-muted transition-colors hover:text-ink"
-                            >
-                              {child.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>,
-                  ]
-                : [
-                    <li key={entry.href} className="py-3.5">
-                      <Link
-                        href={entry.href}
-                        onClick={closeMenu}
-                        className="mono-label text-ink transition-colors hover:text-accent"
-                      >
-                        {entry.label}
-                      </Link>
-                    </li>,
-                  ],
-            )}
+            {mobileItems}
           </ul>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

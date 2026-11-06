@@ -3,6 +3,11 @@
 export const images = {
   founderPortrait: "/founder-stephan-pouyat.png",
   founderPortraitBackdrop: "/founder-stephan-pouyat-backdrop.jpg",
+  bookCover: "/book/cover.png",
+  bookAuthor: "/book/author-satya-v3.png",
+  /** Optional Book3D faces — CSS solids used until present */
+  bookBack: "/book/back.jpg",
+  bookSpine: "/book/spine.jpg",
   heroHome:
     "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1600&q=80",
   heroHydrogen:

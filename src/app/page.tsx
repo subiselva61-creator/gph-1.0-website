@@ -4,6 +4,7 @@ import { FirmProfile } from "@/components/home/FirmProfile";
 import { Founder } from "@/components/home/Founder";
 import { Hero } from "@/components/home/Hero";
 import { Interviews } from "@/components/home/Interviews";
+import { RecommendedReading } from "@/components/home/RecommendedReading";
 import { BrandTicker } from "@/components/meridian/BrandTicker";
 import { CloseCTA } from "@/components/meridian/CloseCTA";
 import { siteConfig } from "@/lib/site";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <Disciplines />
       <Founder />
       <Interviews />
+      <RecommendedReading />
       <CloseCTA
         label="Let us talk about your project"
         heading={
